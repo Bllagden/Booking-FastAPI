@@ -45,9 +45,3 @@ app.add_middleware(
         "Authorization",
     ],
 )
-
-
-@app.on_event("startup")
-async def startup():
-    redis = aioredis.from_url("redis://localhost")
-    FastAPICache.init(RedisBackend(redis), prefix="fastapi-cache")
