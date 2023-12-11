@@ -6,7 +6,7 @@ class DatabaseSettings(BaseSettings):
         env_file=".env", str_strip_whitespace=True, env_prefix="db_"
     )
 
-    DRIVER: str = "postgresql+asyncpg"
+    DRIVER: str
     HOST: str
     PORT: int
     USER: str
