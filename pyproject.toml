@@ -26,5 +26,11 @@ dev = [
     "pytest>=7.4.3",
 ]
 
+[tool.isort]
+profile = "black"
+
+[tool.pytest.ini_options]
+pythonpath = "src"
+
 [tool.pdm.scripts]
 local = "uvicorn src.main:app --reload"
