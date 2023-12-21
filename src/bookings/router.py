@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends
 
 from bookings.dao import BookingDAO
 from bookings.schemas import SBookings, SNewBooking
+from db.models import Users
 from users.dependencies import get_current_user
-from users.models import Users
 
 router = APIRouter(prefix="/bookings", tags=["Бронирования"])
 
