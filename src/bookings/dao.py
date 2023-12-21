@@ -5,7 +5,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from bookings.models import Bookings
 from dao.base import BaseDAO
-from database import AsyncSessionMaker
+from db.engine import async_session_factory
 from exceptions import RoomFullyBooked
 from rooms.models import Rooms
 
@@ -34,7 +34,7 @@ class BookingDAO(BaseDAO):
         GROUP BY rooms.quantity, booked_rooms.room_id
         """
         try:
-            async with AsyncSessionMaker() as session:
+            async with async_session_factory() as session:
                 booked_rooms = (
                     select(Bookings)
                     .where(
