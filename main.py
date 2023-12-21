@@ -1,4 +1,6 @@
 import contextlib
+import os
+import sys
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -7,8 +9,10 @@ from fastapi_cache.backends.redis import RedisBackend
 from fastapi_cache.decorator import cache
 from redis import asyncio as aioredis
 
-from src.bookings.router import router as router_bookings
-from src.users.router import router as users_bookings
+sys.path.insert(1, os.path.join(sys.path[0], "src"))
+
+from bookings.router import router as router_bookings  # noqa: E402
+from users.router import router as users_bookings  # noqa: E402
 
 
 @contextlib.asynccontextmanager
