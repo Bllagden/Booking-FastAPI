@@ -3,11 +3,11 @@ from datetime import date
 from sqlalchemy import and_, func, insert, or_, select
 from sqlalchemy.exc import SQLAlchemyError
 
-from src.bookings.models import Bookings
-from src.dao.base import BaseDAO
-from src.database import AsyncSessionMaker
-from src.exceptions import RoomFullyBooked
-from src.rooms.models import Rooms
+from bookings.models import Bookings
+from dao.base import BaseDAO
+from database import AsyncSessionMaker
+from exceptions import RoomFullyBooked
+from rooms.models import Rooms
 
 
 class BookingDAO(BaseDAO):

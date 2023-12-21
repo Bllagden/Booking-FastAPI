@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase
 
-from src.settings import db_settings
+from settings import db_settings
 
 # Движок - высокоуровневый API SQLAlchemy (скрывает детали реализации) для работы с БД.
 # Работа происходит через драйвер БД (например, asyncpg).

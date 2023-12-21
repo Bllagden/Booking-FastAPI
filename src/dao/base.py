@@ -1,6 +1,6 @@
 from sqlalchemy import select, insert
 
-from src.database import AsyncSessionMaker
+from database import AsyncSessionMaker
 
 
 class BaseDAO:

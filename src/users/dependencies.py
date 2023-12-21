@@ -1,11 +1,11 @@
 from fastapi import Depends, Request
 from jose import ExpiredSignatureError, JWTError, jwt
 
-from src.exceptions import (IncorrectTokenFormatException,
+from exceptions import (IncorrectTokenFormatException,
                             TokenAbsentException, TokenExpiredException,
                             UserIsNotPresentException)
-from src.settings import auth_settings
-from src.users.dao import UsersDAO
+from settings import auth_settings
+from users.dao import UsersDAO
 
 
 def get_token(request: Request):
