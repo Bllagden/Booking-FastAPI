@@ -1,4 +1,4 @@
-from dao.base import BaseDAO
+from base_dao import BaseDAO
 from db.models import Users
 
 

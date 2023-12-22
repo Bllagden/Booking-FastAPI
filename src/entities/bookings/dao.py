@@ -3,7 +3,7 @@ from datetime import date
 from sqlalchemy import and_, func, insert, or_, select
 from sqlalchemy.exc import SQLAlchemyError
 
-from dao.base import BaseDAO
+from base_dao import BaseDAO
 from db.engine import async_session_factory
 from db.models import Bookings, Rooms
 from exceptions import RoomFullyBooked

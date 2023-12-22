@@ -2,10 +2,11 @@ from fastapi import APIRouter, Depends, Response
 
 from db.models import Users
 from exceptions import UserAlreadyExistsException
-from users.auth import authenticate_user, create_access_token, get_password_hash
-from users.dao import UsersDAO
-from users.dependencies import get_current_user
-from users.schemas import SUserAuth
+
+from .auth import authenticate_user, create_access_token, get_password_hash
+from .dao import UsersDAO
+from .dependencies import get_current_user
+from .schemas import SUserAuth
 
 router = APIRouter(prefix="/auth", tags=["Auth & Пользователи"])
 

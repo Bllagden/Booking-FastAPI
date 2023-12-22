@@ -11,8 +11,8 @@ from redis import asyncio as aioredis
 
 sys.path.insert(1, os.path.join(sys.path[0], "src"))
 
-from bookings.router import router as router_bookings  # noqa: E402
-from users.router import router as users_bookings  # noqa: E402
+from entities.bookings.router import router as router_bookings  # noqa: E402
+from entities.users.router import router as router_users  # noqa: E402
 
 
 @contextlib.asynccontextmanager
@@ -24,7 +24,7 @@ async def _lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=_lifespan)
-app.include_router(users_bookings)
+app.include_router(router_users)
 app.include_router(router_bookings)
 
 

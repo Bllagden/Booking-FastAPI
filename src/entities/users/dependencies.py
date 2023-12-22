@@ -8,7 +8,8 @@ from exceptions import (
     UserIsNotPresentException,
 )
 from settings import auth_settings
-from users.dao import UsersDAO
+
+from .dao import UsersDAO
 
 
 def get_token(request: Request):

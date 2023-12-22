@@ -6,7 +6,8 @@ from pydantic import EmailStr
 
 from exceptions import IncorrectEmailOrPasswordException
 from settings import auth_settings
-from users.dao import UsersDAO
+
+from .dao import UsersDAO
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 access_token_expires = timedelta(minutes=auth_settings.ACCESS_TOKEN_EXPIRE_MINUTES)
