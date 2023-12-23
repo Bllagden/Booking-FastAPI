@@ -2,6 +2,14 @@ from fastapi import HTTPException, status
 
 
 class BookingException(HTTPException):
+    """Во время поднятия исключения (raise) создается экземпляр класса этого исключения.
+
+    Почему self.status_code и self.detail:
+    При создании экземпляра, поля класса становятся полями экземпляра класса.
+
+    status_code является обязательным параметром в HTTPException, поэтому необходимо
+    вызывать super().__init__ для передачи status_code в HTTPException."""
+
     status_code = 500
     detail = ""
 
