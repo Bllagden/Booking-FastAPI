@@ -1,9 +1,12 @@
 from datetime import date
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class SBookings(BaseModel):
+    """from_attributes=True - сериализация данных в модель Pydantic для orm объектов
+    (обращение к атрибутам через точку, а не по ключам словаря)."""
+
     id: int
     room_id: int
     user_id: int
@@ -13,10 +16,12 @@ class SBookings(BaseModel):
     total_cost: int
     total_days: int
 
-    # Чтобы при сериализации модели Pydantic пытался прочитать атрибуты данных
-    # (через точку), а не словарь ( ["key"] )
-    class Config:
-        from_attributes = True
+    # новый способ
+    model_config = ConfigDict(from_attributes=True)
+
+    # старый способ
+    # class Config:
+    #   from_attributes = True
 
 
 class SNewBooking(BaseModel):
