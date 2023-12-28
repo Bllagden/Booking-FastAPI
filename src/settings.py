@@ -32,7 +32,26 @@ class AuthSettings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int
 
 
+class AppSettings(BaseSettings):
+    """allow_origins = [
+        "http://localhost.tiangolo.com",
+        "https://localhost.tiangolo.com",
+        "http://localhost",
+        "http://localhost:8080",
+        https://api.mysite.com,
+    ]"""
+
+    model_config = SettingsConfigDict(
+        env_file=".env", str_strip_whitespace=True, env_prefix="app_"
+    )
+
+    ALLOW_ORIGINS: list[str]
+
+
 db_settings = DatabaseSettings()
-# print(db_settings)
 auth_settings = AuthSettings()
+app_settings = AppSettings()
+
+# print(db_settings)
 # print(auth_settings)
+# print(app_settings.ALLOW_ORIGINS)

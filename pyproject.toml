@@ -33,4 +33,4 @@ profile = "black"
 pythonpath = "src"
 
 [tool.pdm.scripts]
-local = "uvicorn main:app --reload"
+local = "main.py"
