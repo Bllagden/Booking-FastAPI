@@ -5,18 +5,22 @@ description = ""
 authors = [
     {name = "Bllagden", email = "bllagden99@gmail.com"},
 ]
+requires-python = ">=3.11"
+readme = "README.md"
+license = {text = "MIT"}
+
 dependencies = [
-    "fastapi[all]>=0.104.0",
-    "sqlalchemy>=2.0.22",
-    "alembic>=1.12.0",
-    "asyncpg>=0.28.0",
+    "fastapi[uvicorn]>=0.108.0",
+    "uvicorn>=0.25.0",
+    "pydantic[email]>=2.5.3",
+    "pydantic-settings>=2.1.0",
+    "sqlalchemy>=2.0.23",
+    "asyncpg>=0.29.0",
+    "alembic>=1.13.1",
     "passlib[bcrypt]>=1.7.4",
     "python-jose[cryptography]>=3.3.0",
     "fastapi-cache2[redis]>=0.2.1",
 ]
-requires-python = ">=3.11"
-readme = "README.md"
-license = {text = "MIT"}
 
 [tool.pdm.dev-dependencies]
 dev = [
@@ -33,4 +37,4 @@ profile = "black"
 pythonpath = "src"
 
 [tool.pdm.scripts]
-local = "main.py"
+loc = "main.py"
