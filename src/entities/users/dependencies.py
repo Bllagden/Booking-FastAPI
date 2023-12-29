@@ -12,14 +12,18 @@ from settings import auth_settings
 from .dao import UsersDAO
 
 
-def get_token(request: Request):
+def _get_token(request: Request) -> str:
+    """С помощью HTTP-запроса запрашивается кука с JWT-токеном."""
     token = request.cookies.get("booking_access_token")
     if not token:
         raise TokenAbsentException
     return token
 
 
-async def get_current_user(token: str = Depends(get_token)):
+async def get_current_user(token: str = Depends(_get_token)):
+    """Получает JWT-токен. Декодирует токен в полезную нагрузку (dict) и проверяет ее.
+    Далее, если в ней есть subject (id), ищет его в БД. Если такой есть, возвращает юзера.
+    """
     try:
         payload = jwt.decode(token, auth_settings.SECRET_KEY, auth_settings.ALGORITHM)
     except ExpiredSignatureError:
@@ -27,7 +31,7 @@ async def get_current_user(token: str = Depends(get_token)):
     except JWTError:
         raise IncorrectTokenFormatException
 
-    user_id: str = payload.get("sub")
+    user_id: str | None = payload.get("sub")
     if not user_id:
         raise UserIsNotPresentException
 
