@@ -7,6 +7,7 @@ from fastapi_cache.backends.redis import RedisBackend
 from fastapi_cache.decorator import cache
 from redis import asyncio as aioredis
 
+from admin import create_admin
 from entities.bookings.router import router_bookings
 from entities.users.router import router_users
 from settings import app_settings
@@ -27,6 +28,8 @@ def create_app() -> FastAPI:
     app = FastAPI(lifespan=_lifespan)
     _include_routers(app)
     _add_middlewares(app)
+
+    admin = create_admin(app)  # noqa: F841
     return app
 
 

@@ -20,6 +20,7 @@ dependencies = [
     "passlib[bcrypt]>=1.7.4",
     "python-jose[cryptography]>=3.3.0",
     "fastapi-cache2[redis]>=0.2.1",
+    "sqladmin>=0.16.0",
 ]
 
 [tool.pdm.dev-dependencies]
