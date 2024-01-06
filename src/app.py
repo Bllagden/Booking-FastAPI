@@ -9,8 +9,7 @@ from redis import asyncio as aioredis
 
 from admin import create_admin
 from entities.bookings.router import router_bookings
-
-# from entities.hotels.router import router_hotels
+from entities.hotels.router import router_hotels
 from entities.users.router import router_users
 from settings import app_settings
 
@@ -39,7 +38,7 @@ def _include_routers(app: FastAPI) -> None:
     """Добавление роутеров в приложение."""
     app.include_router(router_users)
     app.include_router(router_bookings)
-    # app.include_router(router_hotels)
+    app.include_router(router_hotels)
 
 
 def _add_middlewares(app: FastAPI) -> None:
