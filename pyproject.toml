@@ -21,6 +21,7 @@ dependencies = [
     "python-jose[cryptography]>=3.3.0",
     "fastapi-cache2[redis]>=0.2.1",
     "sqladmin>=0.16.0",
+    "itsdangerous>=2.1.2",
 ]
 
 [tool.pdm.dev-dependencies]

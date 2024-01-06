@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
-from fastapi_cache.decorator import cache
+from fastapi_cache.decorator import cache  # noqa: F401
 from redis import asyncio as aioredis
 
 from admin import create_admin

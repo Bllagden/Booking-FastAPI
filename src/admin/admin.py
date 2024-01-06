@@ -1,12 +1,18 @@
 from sqladmin import Admin
 
-from db import async_session_factory
+from db import async_engine, async_session_factory  # noqa: F401
 
+from .auth import authentication_backend
 from .views import BookingsAdmin, HotelsAdmin, RoomsAdmin, UsersAdmin
 
 
 def create_admin(app):
-    admin = Admin(app, session_maker=async_session_factory)
+    admin = Admin(
+        app,
+        # engine=async_engine,
+        session_maker=async_session_factory,
+        authentication_backend=authentication_backend,
+    )
     _add_admin_views(admin)
     return admin
 
