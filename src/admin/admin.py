@@ -1,12 +1,12 @@
 from sqladmin import Admin
 
-from db import async_engine
+from db import async_session_factory
 
 from .views import BookingsAdmin, HotelsAdmin, RoomsAdmin, UsersAdmin
 
 
 def create_admin(app):
-    admin = Admin(app, async_engine)
+    admin = Admin(app, session_maker=async_session_factory)
     _add_admin_views(admin)
     return admin
 
