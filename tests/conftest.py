@@ -3,9 +3,11 @@ import json
 from datetime import datetime
 
 import pytest
+from httpx import AsyncClient
 from sqlalchemy import insert
 
-from db import Base, async_engine, async_session_factory
+from app import create_app as create_fastapi_app
+from db import Base, test_async_engine, test_async_session_factory
 from db.models import Bookings, Hotels, Rooms, Users
 from settings import db_settings
 
@@ -14,7 +16,7 @@ from settings import db_settings
 async def setup_database():
     assert db_settings.MODE == "TEST"
 
-    async with async_engine.begin() as conn:
+    async with test_async_engine.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)
 
@@ -32,7 +34,7 @@ async def setup_database():
         booking["date_from"] = datetime.strptime(booking["date_from"], "%Y-%m-%d")
         booking["date_to"] = datetime.strptime(booking["date_to"], "%Y-%m-%d")
 
-    async with async_session_factory() as session:
+    async with test_async_session_factory() as session:
         for Model, values in [
             (Hotels, hotels),
             (Rooms, rooms),
@@ -50,5 +52,12 @@ async def setup_database():
 def event_loop(request):
     """Create an instance of the default event loop for each test case."""
     loop = asyncio.get_event_loop_policy().new_event_loop()
-    yield loop
+    yield loop  # место работы тестов
     loop.close()
+
+
+@pytest.fixture(scope="function")
+async def ac():
+    """Async_Client"""
+    async with AsyncClient(app=create_fastapi_app(), base_url="http://test") as ac:
+        yield ac
