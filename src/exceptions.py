@@ -54,3 +54,13 @@ class RoomFullyBooked(BookingException):
 class RoomCannotBeBooked(BookingException):
     status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
     detail = "Не удалось забронировать номер ввиду неизвестной ошибки"
+
+
+class HotelCannotBeCreated(BookingException):
+    status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
+    detail = "Не удалось создать отель ввиду неизвестной ошибки"
+
+
+class RoomCannotBeCreated(BookingException):
+    status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
+    detail = "Не удалось создать комнату ввиду неизвестной ошибки"

@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from pydantic import TypeAdapter
 
 from db.models import Users
-from exceptions import RoomCannotBeBooked
+from exceptions import HotelCannotBeCreated
 
 from ..users.dependencies import get_current_user
 from .dao import HotelsDAO
@@ -30,7 +30,7 @@ async def add_hotel(
     )
 
     if not hotel:
-        raise RoomCannotBeBooked
+        raise HotelCannotBeCreated
 
     hotel = TypeAdapter(SNewHotel).validate_python(hotel).model_dump()
     return hotel
