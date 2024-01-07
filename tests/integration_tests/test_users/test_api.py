@@ -1,6 +1,12 @@
 import pytest
 from httpx import AsyncClient
 
+"""
+pytest --envfile .test.env tests/integration_tests/test_users/test_api.py -s -v
+pytest --envfile .test.env tests/integration_tests/test_users/test_api.py::test_register_user -s -v
+pytest --envfile .test.env tests/integration_tests/test_users/test_api.py::test_login_user -s -v
+"""
+
 
 @pytest.mark.parametrize(
     "email, password, status_code",

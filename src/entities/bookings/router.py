@@ -14,12 +14,12 @@ router_bookings = APIRouter(
 )
 
 
-@router_bookings.get("")
+@router_bookings.get("/get")
 async def get_bookings(user: Users = Depends(get_current_user)) -> list[SBookings]:
     return await BookingDAO.find_all(user_id=user.id)
 
 
-@router_bookings.post("/add")
+@router_bookings.post("", status_code=200)
 async def add_booking(
     booking: SNewBooking,
     user: Users = Depends(get_current_user),

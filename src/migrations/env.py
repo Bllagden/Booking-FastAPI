@@ -11,7 +11,7 @@ from settings import db_settings
 # access to the values within the .ini file in use.
 config = context.config
 # алембику с какой БД сравнивать
-config.set_main_option("sqlalchemy.url", f"{db_settings.url}?async_fallback=True")
+config.set_main_option("sqlalchemy.url", f"{db_settings.URL}?async_fallback=True")
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.

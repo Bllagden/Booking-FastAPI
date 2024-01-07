@@ -7,16 +7,18 @@ from httpx import AsyncClient
 from sqlalchemy import insert
 
 from app import create_app as create_fastapi_app
-from db import Base, test_async_engine, test_async_session_factory
+from db import Base, async_engine, async_session_factory
 from db.models import Bookings, Hotels, Rooms, Users
 from settings import db_settings
+
+"""pytest --envfile .test.env -s -v"""
 
 
 @pytest.fixture(scope="session", autouse=True)
 async def setup_database():
     assert db_settings.MODE == "TEST"
 
-    async with test_async_engine.begin() as conn:
+    async with async_engine.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)
 
@@ -34,7 +36,7 @@ async def setup_database():
         booking["date_from"] = datetime.strptime(booking["date_from"], "%Y-%m-%d")
         booking["date_to"] = datetime.strptime(booking["date_to"], "%Y-%m-%d")
 
-    async with test_async_session_factory() as session:
+    async with async_session_factory() as session:
         for Model, values in [
             (Hotels, hotels),
             (Rooms, rooms),
@@ -60,4 +62,18 @@ def event_loop(request):
 async def ac():
     """Async_Client"""
     async with AsyncClient(app=create_fastapi_app(), base_url="http://test") as ac:
+        yield ac
+
+
+@pytest.fixture(scope="session")
+async def authenticated_ac():
+    async with AsyncClient(app=create_fastapi_app(), base_url="http://test") as ac:
+        await ac.post(
+            "/auth/login",
+            json={
+                "email": "test@test.com",
+                "password": "test",
+            },
+        )
+        assert ac.cookies["booking_access_token"]
         yield ac

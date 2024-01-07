@@ -17,7 +17,7 @@ class DatabaseSettings(BaseSettings):
     NAME: str
 
     @property
-    def url(self):
+    def URL(self):
         """
         Строка подключения к БД (адрес). Указывает SQLAlchemy, как подключиться к БД.
         asyncpg (драйвер БД) - API для асинхронного взаимодействия с postgresql.
