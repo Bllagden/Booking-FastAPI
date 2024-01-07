@@ -1,10 +1,13 @@
+from typing import Literal
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class DatabaseSettings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file=".env", str_strip_whitespace=True, env_prefix="db_"
+        env_file=".dev.env", str_strip_whitespace=True, env_prefix="db_"
     )
+    MODE: Literal["DEV", "TEST", "PROD"]
 
     DRIVER: str
     HOST: str
@@ -24,7 +27,7 @@ class DatabaseSettings(BaseSettings):
 
 class AuthSettings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file=".env", str_strip_whitespace=True, env_prefix="auth_"
+        env_file=".dev.env", str_strip_whitespace=True, env_prefix="auth_"
     )
 
     SECRET_KEY: str
@@ -42,7 +45,7 @@ class AppSettings(BaseSettings):
     ]"""
 
     model_config = SettingsConfigDict(
-        env_file=".env", str_strip_whitespace=True, env_prefix="app_"
+        env_file=".dev.env", str_strip_whitespace=True, env_prefix="app_"
     )
 
     ALLOW_ORIGINS: list[str]
