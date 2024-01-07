@@ -117,8 +117,8 @@ class BookingDAO(BaseDAO):
             if isinstance(e, SQLAlchemyError):
                 msg = "Database Exc: Cannot add booking"
             elif isinstance(e, Exception):
-                msg = "Unknown Exc: Cannot add booking"
-            extra = {
+                msg = "Unknown Exc: Cannot add booking"  # noqa: F841
+            extra = {  # noqa: F841
                 "user_id": user_id,
                 "room_id": room_id,
                 "date_from": date_from,

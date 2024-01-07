@@ -39,6 +39,6 @@ class BaseDAO:
         """Добавленное значение возвращается методом .returning()"""
         async with async_session_factory() as session:
             stmt = insert(cls.model).values(**data)  # .returning(cls.model.id)
-            new_object = await session.execute(stmt)
+            new_object = await session.execute(stmt)  # noqa: F841
             await session.commit()
             # return new_object.scalar_one()
