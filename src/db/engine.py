@@ -7,7 +7,8 @@ if db_settings.MODE == "TEST":
     DATABASE_PARAMS = {"poolclass": NullPool}
 elif db_settings.MODE == "DEV":
     DATABASE_PARAMS = {}
-
+elif db_settings.MODE == "PROD":
+    DATABASE_PARAMS = {}
 
 async_engine = create_async_engine(
     url=db_settings.URL,
