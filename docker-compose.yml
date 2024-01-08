@@ -1,5 +1,16 @@
 version: "3.8"
 services:
+  nginx:
+    build:
+      context: .
+      dockerfile: "Dockerfile.nginx"
+    container_name: booking_nginx
+    ports:
+       - 80:80
+       - 443:443
+    links:
+       - booking
+  
   db:
     image: postgres:16
     container_name: booking_db
@@ -20,8 +31,8 @@ services:
     depends_on:
       - db
     command: ["/booking/docker/app.sh"]
-    ports:
-      - 7777:8000
+    # ports:
+    #   - 7777:8000
   
 volumes:
   postgresdata:
