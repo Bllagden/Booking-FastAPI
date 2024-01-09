@@ -143,8 +143,8 @@ class BookingDAO(BaseDAO):
             if isinstance(e, SQLAlchemyError):
                 msg = "Database Exc: Cannot delete booking"
             elif isinstance(e, Exception):
-                msg = "Unknown Exc: Cannot delete booking"
-            extra = {
+                msg = "Unknown Exc: Cannot delete booking"  # noqa: F841
+            extra = {  # noqa: F841
                 "booking_id": booking_id,
                 "user_id": user_id,
             }
