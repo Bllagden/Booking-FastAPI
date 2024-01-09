@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING
 from sqlalchemy import JSON, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from db import Base
+from db import Base, int_pk
 
 if TYPE_CHECKING:
     from db.models import Bookings, Hotels
@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 class Rooms(Base):
     __tablename__ = "rooms"
 
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[int_pk]
     hotel_id: Mapped[int] = mapped_column(ForeignKey("hotels.id"))
     name: Mapped[str]
     description: Mapped[str | None]

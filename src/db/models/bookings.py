@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 from sqlalchemy import Computed, Date, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from db import Base
+from db import Base, int_pk
 
 if TYPE_CHECKING:
     from db.models import Rooms, Users
@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 class Bookings(Base):
     __tablename__ = "bookings"
 
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[int_pk]
     room_id: Mapped[int] = mapped_column(ForeignKey("rooms.id"))
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     date_from: Mapped[date] = mapped_column(Date)
