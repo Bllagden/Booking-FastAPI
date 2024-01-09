@@ -1,6 +1,6 @@
 from datetime import date
 
-from sqlalchemy import and_, func, insert, or_, select
+from sqlalchemy import and_, delete, func, insert, or_, select
 from sqlalchemy.exc import SQLAlchemyError
 
 from base_dao import BaseDAO
@@ -125,3 +125,26 @@ class BookingDAO(BaseDAO):
                 "date_to": date_to,
             }
             # logger.error(msg, extra=extra, exc_info=True)
+
+    @classmethod
+    async def delete(cls, booking_id: int, user_id: int):
+        try:
+            async with async_session_factory() as session:
+                delete_booking = (
+                    delete(Bookings)
+                    .where(Bookings.id == booking_id)
+                    .where(Bookings.user_id == user_id)
+                )
+
+                result = await session.execute(delete_booking)
+                await session.commit()
+                return result.rowcount > 0
+        except (SQLAlchemyError, Exception) as e:
+            if isinstance(e, SQLAlchemyError):
+                msg = "Database Exc: Cannot delete booking"
+            elif isinstance(e, Exception):
+                msg = "Unknown Exc: Cannot delete booking"
+            extra = {
+                "booking_id": booking_id,
+                "user_id": user_id,
+            }

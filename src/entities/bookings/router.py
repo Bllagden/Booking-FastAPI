@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from pydantic import TypeAdapter
 
 from db.models import Users
-from exceptions import RoomCannotBeBooked
+from exceptions import BookingNotExist, RoomCannotBeBooked
 
 from ..users.dependencies import get_current_user
 from .dao import BookingDAO
@@ -36,3 +36,16 @@ async def add_booking(
 
     booking = TypeAdapter(SNewBooking).validate_python(booking).model_dump()
     return booking
+
+
+@router_bookings.delete("/{booking_id}")
+async def cancel_booking(
+    booking_id: int,
+    user: Users = Depends(get_current_user),
+):
+    success = await BookingDAO.delete(booking_id, user.id)
+
+    if not success:
+        raise BookingNotExist()
+
+    return {"message": "Бронь отменена"}

@@ -64,3 +64,8 @@ class HotelCannotBeCreated(BookingException):
 class RoomCannotBeCreated(BookingException):
     status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
     detail = "Не удалось создать комнату ввиду неизвестной ошибки"
+
+
+class BookingNotExist(BookingException):
+    status_code = status.HTTP_404_NOT_FOUND
+    detail = "Бронь не найдена"
