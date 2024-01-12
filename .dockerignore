@@ -1,0 +1,12 @@
+.git
+.idea
+.vscode
+.pytest_cache
+documentation_images
+
+.dev.env_example
+.test.env_example
+.prod.env_example
+
+.gitignore
+.dockerignore
