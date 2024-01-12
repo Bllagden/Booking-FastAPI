@@ -3,14 +3,13 @@ from logging.config import fileConfig
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 
+import db.models  # noqa: F401
 from db import Base
-from db.models import Bookings, Hotels, Rooms, Users  # noqa: F401
 from settings import db_settings
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
-# алембику с какой БД сравнивать
 config.set_main_option("sqlalchemy.url", f"{db_settings.URL}?async_fallback=True")
 
 # Interpret the config file for Python logging.
