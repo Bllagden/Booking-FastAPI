@@ -1,4 +1,7 @@
+import asyncio
+
 from fastapi import APIRouter, Depends
+from fastapi_cache.decorator import cache
 from pydantic import TypeAdapter
 
 from db.models import Users
@@ -14,9 +17,11 @@ router_rooms = APIRouter(
 )
 
 
-@router_rooms.get("")
-async def get_hotels(user: Users = Depends(get_current_user)) -> list[SRooms]:
-    return await RoomsDAO.find_all()
+@router_rooms.get("/hotel_id_{hotel_id}")
+@cache(expire=30)
+async def get_rooms_by_hotel_id(hotel_id: int) -> list[SRooms]:
+    await asyncio.sleep(3)
+    return await RoomsDAO.find_all(hotel_id=hotel_id)
 
 
 @router_rooms.post("/add")

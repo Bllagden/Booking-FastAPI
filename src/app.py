@@ -4,7 +4,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
-from fastapi_cache.decorator import cache  # noqa: F401
 from redis import asyncio as aioredis
 
 from admin import create_admin
@@ -20,7 +19,9 @@ async def _lifespan(app: FastAPI):
     """'lifespan' заменяет 'startup' и 'shutdown'.
     'yield' - место работы приложения. Соответственно,
     все до и после 'yield' - это процессы в начале работы приложения и в его конце."""
-    redis = aioredis.from_url("redis://localhost")
+    redis = aioredis.from_url(
+        "redis://localhost:6379", encoding="utf8", decode_responses=True
+    )
     FastAPICache.init(RedisBackend(redis), prefix="cache")
     yield
     # await redis.close()
