@@ -23,6 +23,8 @@ dependencies = [
     "sqladmin>=0.16.0",
     "itsdangerous>=2.1.2",
     "gunicorn>=21.2.0",
+    "celery>=5.3.6",
+    "flower>=2.0.1",
 ]
 
 [tool.pdm.dev-dependencies]

@@ -17,7 +17,7 @@ router_rooms = APIRouter(
 )
 
 
-@router_rooms.get("/hotel_id_{hotel_id}")
+@router_rooms.get("/hotel_id/{hotel_id}")
 @cache(expire=30)
 async def get_rooms_by_hotel_id(hotel_id: int) -> list[SRooms]:
     await asyncio.sleep(3)

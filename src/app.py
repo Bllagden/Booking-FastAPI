@@ -11,7 +11,7 @@ from entities.bookings.router import router_bookings
 from entities.hotels.router import router_hotels
 from entities.rooms.router import router_rooms
 from entities.users.router import router_users
-from settings import app_settings
+from settings import app_settings, redis_settings
 
 
 @contextlib.asynccontextmanager
@@ -20,7 +20,9 @@ async def _lifespan(app: FastAPI):
     'yield' - место работы приложения. Соответственно,
     все до и после 'yield' - это процессы в начале работы приложения и в его конце."""
     redis = aioredis.from_url(
-        "redis://localhost:6379", encoding="utf8", decode_responses=True
+        f"redis://{redis_settings.HOST}:{redis_settings.PORT}",
+        encoding="utf8",
+        decode_responses=True,
     )
     FastAPICache.init(RedisBackend(redis), prefix="cache")
     yield

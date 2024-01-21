@@ -3,6 +3,7 @@ from pydantic import TypeAdapter
 
 from db.models import Users
 from exceptions import BookingNotExist, RoomCannotBeBooked
+from tasks.tasks import send_booking_confirmation_email
 
 from ..users.dependencies import get_current_user
 from .dao import BookingDAO
@@ -19,7 +20,7 @@ async def get_bookings(user: Users = Depends(get_current_user)) -> list[SBooking
     return await BookingDAO.find_all(user_id=user.id)
 
 
-@router_bookings.post("", status_code=200)
+@router_bookings.post("/add", status_code=200)
 async def add_booking(
     booking: SNewBooking,
     user: Users = Depends(get_current_user),
@@ -35,6 +36,7 @@ async def add_booking(
         raise RoomCannotBeBooked
 
     booking = TypeAdapter(SNewBooking).validate_python(booking).model_dump()
+    send_booking_confirmation_email(booking, user.email)
     return booking
 
 

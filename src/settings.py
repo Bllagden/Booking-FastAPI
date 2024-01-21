@@ -29,7 +29,6 @@ class AuthSettings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=".dev.env", str_strip_whitespace=True, env_prefix="auth_"
     )
-
     SECRET_KEY: str
     ALGORITHM: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int
@@ -47,14 +46,35 @@ class AppSettings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=".dev.env", str_strip_whitespace=True, env_prefix="app_"
     )
-
     ALLOW_ORIGINS: list[str]
+
+
+class RedisSettings(BaseSettings):
+    model_config = SettingsConfigDict(
+        env_file=".dev.env", str_strip_whitespace=True, env_prefix="redis_"
+    )
+    HOST: str
+    PORT: str
+
+
+class SMTPSettings(BaseSettings):
+    model_config = SettingsConfigDict(
+        env_file=".dev.env", str_strip_whitespace=True, env_prefix="smtp_"
+    )
+    HOST: str
+    PORT: str
+    USER: str
+    PASSWORD: str
 
 
 db_settings = DatabaseSettings()
 auth_settings = AuthSettings()
 app_settings = AppSettings()
+redis_settings = RedisSettings()
+smtp_settings = SMTPSettings()
 
 # print(db_settings)
 # print(auth_settings)
 # print(app_settings.ALLOW_ORIGINS)
+# print(redis_settings)
+# print(smtp_settings)
