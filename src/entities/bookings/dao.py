@@ -34,6 +34,18 @@ class BookingDAO(BaseDAO):
         """
         try:
             async with async_session_factory() as session:
+                existing_booking = select(Bookings).where(
+                    and_(
+                        Bookings.room_id == room_id,
+                        Bookings.user_id == user_id,
+                        date_from <= Bookings.date_to,
+                    )
+                )
+                result = await session.execute(existing_booking)
+                existing_booking: Bookings | None = result.scalar_one_or_none()
+                if existing_booking is not None:
+                    raise RoomFullyBooked
+
                 booked_rooms = (
                     select(Bookings)
                     .where(
@@ -77,10 +89,7 @@ class BookingDAO(BaseDAO):
                     .where(Rooms.id == room_id)
                     .group_by(Rooms.quantity, booked_rooms.c.room_id)
                 )
-
-                # Рекомендую выводить SQL запрос в консоль для сверки
                 # logger.debug(get_rooms_left.compile(engine, compile_kwargs={"literal_binds": True}))
-
                 rooms_left = await session.execute(get_rooms_left)
                 rooms_left: int = rooms_left.scalar()
 
