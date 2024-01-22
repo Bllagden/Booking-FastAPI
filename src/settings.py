@@ -67,14 +67,23 @@ class SMTPSettings(BaseSettings):
     PASSWORD: str
 
 
+class LogSettings(BaseSettings):
+    model_config = SettingsConfigDict(
+        env_file=".dev.env", str_strip_whitespace=True, env_prefix="log_"
+    )
+    LEVEL: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
+
+
 db_settings = DatabaseSettings()
 auth_settings = AuthSettings()
 app_settings = AppSettings()
 redis_settings = RedisSettings()
 smtp_settings = SMTPSettings()
+log_settings = LogSettings()
 
 # print(db_settings)
 # print(auth_settings)
 # print(app_settings.ALLOW_ORIGINS)
 # print(redis_settings)
 # print(smtp_settings)
+# print(log_settings)

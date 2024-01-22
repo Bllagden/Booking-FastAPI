@@ -4,6 +4,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from base_dao import BaseDAO
 from db.engine import async_session_factory
 from db.models import Hotels
+from logger import logger
 
 
 class HotelsDAO(BaseDAO):
@@ -47,3 +48,4 @@ class HotelsDAO(BaseDAO):
                 "rooms_quantity": rooms_quantity,
                 "image_id": image_id,
             }
+            logger.error(msg, extra=extra, exc_info=True)

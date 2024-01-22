@@ -7,6 +7,7 @@ from base_dao import BaseDAO
 from db.engine import async_session_factory
 from db.models import Bookings, Rooms
 from exceptions import RoomFullyBooked
+from logger import logger
 
 
 class BookingDAO(BaseDAO):
@@ -133,7 +134,7 @@ class BookingDAO(BaseDAO):
                 "date_from": date_from,
                 "date_to": date_to,
             }
-            # logger.error(msg, extra=extra, exc_info=True)
+            logger.error(msg, extra=extra, exc_info=True)
 
     @classmethod
     async def delete(cls, booking_id: int, user_id: int):
@@ -157,3 +158,4 @@ class BookingDAO(BaseDAO):
                 "booking_id": booking_id,
                 "user_id": user_id,
             }
+            logger.error(msg, extra=extra, exc_info=True)
