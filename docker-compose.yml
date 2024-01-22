@@ -10,6 +10,7 @@ services:
        - 443:443
     links:
        - booking
+       - flower
   
   db:
     image: postgres:16
@@ -21,6 +22,10 @@ services:
     ports:
       - 5432:5432
 
+  redis:
+    image: redis:7
+    container_name: booking_redis
+
   booking:
     image: booking_image
     build:
@@ -30,9 +35,34 @@ services:
       - .prod.env
     depends_on:
       - db
+      - redis
     command: ["/booking/docker/app.sh"]
     # ports:
     #   - 7777:8000
-  
+
+  celery:
+    image: booking_celery
+    build:
+      context: .
+    container_name: booking_celery
+    command: ["/booking/docker/celery.sh", "celery"]
+    env_file:
+      - .prod.env
+    depends_on:
+      - redis
+
+  flower:
+    image: booking_flower
+    build:
+      context: .
+    container_name: booking_flower
+    command: ["/booking/docker/celery.sh", "flower"]
+    env_file:
+      - .prod.env
+    depends_on:
+      - redis
+    # ports:
+    #   - 5555:5555
+
 volumes:
   postgresdata:
