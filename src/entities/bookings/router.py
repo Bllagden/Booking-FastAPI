@@ -3,7 +3,7 @@ from pydantic import TypeAdapter
 
 from db.models import Users
 from exceptions import BookingNotExist, RoomCannotBeBooked
-from tasks.tasks import send_booking_confirmation_email
+from tasks import send_booking_confirmation_email
 
 from ..users.dependencies import get_current_user
 from .dao import BookingDAO
