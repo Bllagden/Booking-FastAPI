@@ -6,7 +6,7 @@ celery = Celery(
     "tasks",
     broker=f"redis://{redis_settings.HOST}:{redis_settings.PORT}",
     include=[
-        "src.tasks.tasks",
+        "tasks.tasks",
         # "src.tasks.scheduled",
     ],
 )
