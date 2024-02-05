@@ -1,6 +1,7 @@
 version: "3.8"
 services:
   nginx:
+    image: booking_nginx_i
     build:
       context: .
       dockerfile: "Dockerfile.nginx"
@@ -27,7 +28,7 @@ services:
     container_name: booking_redis
 
   booking:
-    image: booking_image
+    image: booking_app_i
     build:
       context: .
     container_name: booking_app
@@ -41,7 +42,7 @@ services:
     #   - 7777:8000
 
   celery:
-    image: booking_celery
+    image: booking_celery_i
     build:
       context: .
     container_name: booking_celery
@@ -52,7 +53,7 @@ services:
       - redis
 
   flower:
-    image: booking_flower
+    image: booking_flower_i
     build:
       context: .
     container_name: booking_flower
