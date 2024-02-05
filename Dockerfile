@@ -1,13 +1,13 @@
 FROM python:3.11
 
-RUN mkdir /booking
+RUN curl -sSL https://pdm-project.org/install-pdm.py | python3 -
+ENV PATH=/root/.local/bin:$PATH
 
+RUN mkdir /booking
 WORKDIR /booking
 
 COPY pyproject.toml .
 COPY pdm.lock .
-
-RUN pip install pdm
 RUN pdm install --prod
 
 COPY . .
