@@ -60,13 +60,15 @@ def event_loop(request):
 
 @pytest.fixture(scope="function")
 async def ac():
-    """Async_Client"""
+    """Async_Client.
+    Клиент может быть использован для отправки HTTP-запросов к тестируемому веб-приложению"""
     async with AsyncClient(app=create_fastapi_app(), base_url="http://test") as ac:
         yield ac
 
 
 @pytest.fixture(scope="session")
 async def authenticated_ac():
+    """HTTP-запросы к тестируемому веб-приложению с аутентификацией.    """
     async with AsyncClient(app=create_fastapi_app(), base_url="http://test") as ac:
         await ac.post(
             "/auth/login",
