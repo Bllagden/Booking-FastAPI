@@ -1,13 +1,24 @@
-.git
 .idea
 .vscode
 *__pycache__
-.pytest_cache
+
+.git
+.gitignore
+
+README.md
 documentation_images
 
+.pytest_cache
+.venv
+venv
+
+.pdm-python
+.dev.env
 .dev.env_example
 .test.env_example
 .prod.env_example
 
-.gitignore
+Dockerfile
+docker-compose.yml
+Dockerfile.nginx
 .dockerignore
