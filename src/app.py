@@ -2,6 +2,7 @@ import contextlib
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
 from redis import asyncio as aioredis
@@ -33,8 +34,8 @@ def create_app() -> FastAPI:
     app = FastAPI(lifespan=_lifespan)
     _include_routers(app)
     _add_middlewares(app)
-
     admin = create_admin(app)  # noqa: F841
+    # app.mount("/static", StaticFiles(directory="/static"), name="static")
     return app
 
 

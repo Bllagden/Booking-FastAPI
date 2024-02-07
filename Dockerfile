@@ -11,7 +11,8 @@ COPY pdm.lock .
 RUN pdm install --prod
 
 COPY . .
+# RUN cp -r /booking/.venv/lib/python3.11/site-packages/sqladmin/statics/* /booking/static/
 
 RUN chmod a+x /booking/docker/*.sh
 
-CMD ["pdm", "run", "gunicorn", "main:create_app", "--workers", "1", "--worker-class", "uvicorn.workers.UvicornWorker", "--bind=0.0.0.0:8000"]
+# CMD ["pdm", "run", "gunicorn", "main:create_app", "--workers", "1", "--worker-class", "uvicorn.workers.UvicornWorker", "--bind=0.0.0.0:8000"]

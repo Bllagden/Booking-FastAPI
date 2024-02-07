@@ -12,6 +12,8 @@ services:
     links:
        - booking
        - flower
+    volumes:
+      - booking_static:/static
   
   postgres-db:
     image: postgres:16
@@ -41,6 +43,8 @@ services:
       - postgres-db
       - redis
     command: ["/booking/docker/app.sh"]
+    volumes:
+      - booking_static:/booking/static
     # ports:
     #   - 7777:8000
 
@@ -70,3 +74,4 @@ services:
 
 volumes:
   booking_pg_data:
+  booking_static:
