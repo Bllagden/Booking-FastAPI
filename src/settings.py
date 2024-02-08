@@ -1,13 +1,24 @@
-from typing import Literal
+import functools
+from typing import Literal, TypeVar
 
+import dotenv
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+TSettings = TypeVar("TSettings", bound=BaseSettings)
+
+
+def get_settings(cls: type[TSettings]) -> TSettings:
+    dotenv.load_dotenv()
+    return cls()
+
+
+get_settings = functools.lru_cache(get_settings)  # Mypy moment
 
 
 class DatabaseSettings(BaseSettings):
-    model_config = SettingsConfigDict(
-        env_file=".dev.env", str_strip_whitespace=True, env_prefix="db_"
-    )
+    model_config = SettingsConfigDict(str_strip_whitespace=True, env_prefix="db_")
     MODE: Literal["DEV", "TEST", "PROD"]
+    echo: bool = False
 
     DRIVER: str
     HOST: str
@@ -17,7 +28,7 @@ class DatabaseSettings(BaseSettings):
     NAME: str
 
     @property
-    def URL(self):
+    def url(self):
         """
         Строка подключения к БД (адрес). Указывает SQLAlchemy, как подключиться к БД.
         asyncpg (драйвер БД) - API для асинхронного взаимодействия с postgresql.
@@ -26,9 +37,7 @@ class DatabaseSettings(BaseSettings):
 
 
 class AuthSettings(BaseSettings):
-    model_config = SettingsConfigDict(
-        env_file=".dev.env", str_strip_whitespace=True, env_prefix="auth_"
-    )
+    model_config = SettingsConfigDict(str_strip_whitespace=True, env_prefix="auth_")
     SECRET_KEY: str
     ALGORITHM: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int
@@ -43,9 +52,7 @@ class AppSettings(BaseSettings):
         https://api.mysite.com,
     ]"""
 
-    model_config = SettingsConfigDict(
-        env_file=".dev.env", str_strip_whitespace=True, env_prefix="app_"
-    )
+    model_config = SettingsConfigDict(str_strip_whitespace=True, env_prefix="app_")
     ALLOW_ORIGINS: list[str]
 
 
@@ -58,9 +65,7 @@ class RedisSettings(BaseSettings):
 
 
 class SMTPSettings(BaseSettings):
-    model_config = SettingsConfigDict(
-        env_file=".dev.env", str_strip_whitespace=True, env_prefix="smtp_"
-    )
+    model_config = SettingsConfigDict(str_strip_whitespace=True, env_prefix="smtp_")
     HOST: str
     PORT: str
     USER: str
@@ -68,9 +73,7 @@ class SMTPSettings(BaseSettings):
 
 
 class LogSettings(BaseSettings):
-    model_config = SettingsConfigDict(
-        env_file=".dev.env", str_strip_whitespace=True, env_prefix="log_"
-    )
+    model_config = SettingsConfigDict(str_strip_whitespace=True, env_prefix="log_")
     LEVEL: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
 
 
