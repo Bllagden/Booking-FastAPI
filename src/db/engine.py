@@ -26,13 +26,13 @@ from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 
 from settings import DatabaseSettings, get_settings
 
-_settings = get_settings(DatabaseSettings)
+_db_settings = get_settings(DatabaseSettings)
 
-if _settings.MODE == "TEST":
+if _db_settings.mode == "TEST":
     DATABASE_PARAMS = {
         "poolclass": NullPool,
     }
-elif _settings.MODE == "DEV" or _settings.MODE == "PROD":
+elif _db_settings.mode == "DEV" or _db_settings.mode == "PROD":
     DATABASE_PARAMS = {
         "pool_size": 20,
         "pool_pre_ping": True,
@@ -40,8 +40,8 @@ elif _settings.MODE == "DEV" or _settings.MODE == "PROD":
     }
 
 async_engine = create_async_engine(
-    url=_settings.url,
-    echo=_settings.echo,
+    url=_db_settings.url,
+    echo=_db_settings.echo,
     # pool_size=20,
     # pool_pre_ping=True,
     # pool_use_lifo=True,

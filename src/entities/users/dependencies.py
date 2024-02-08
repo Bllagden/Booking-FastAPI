@@ -7,9 +7,11 @@ from exceptions import (
     TokenExpiredException,
     UserIsNotPresentException,
 )
-from settings import auth_settings
+from settings import AuthSettings, get_settings
 
 from .dao import UsersDAO
+
+_auth_settings = get_settings(AuthSettings)
 
 
 def _get_token(request: Request) -> str:
@@ -25,7 +27,7 @@ async def get_current_user(token: str = Depends(_get_token)):
     Далее, если в ней есть subject (id), ищет его в БД. Если такой есть, возвращает юзера.
     """
     try:
-        payload = jwt.decode(token, auth_settings.SECRET_KEY, auth_settings.ALGORITHM)
+        payload = jwt.decode(token, _auth_settings.secret_key, _auth_settings.algorithm)
     except ExpiredSignatureError:
         raise TokenExpiredException
     except JWTError:

@@ -9,14 +9,14 @@ from sqlalchemy import insert
 from app import create_app as create_fastapi_app
 from db import Base, async_engine, async_session_factory
 from db.models import Bookings, Hotels, Rooms, Users
-from settings import db_settings
+from settings import DatabaseSettings, get_settings
 
 """pytest --envfile .test.env -s -v"""
 
 
 @pytest.fixture(scope="session", autouse=True)
 async def setup_database():
-    assert db_settings.MODE == "TEST"
+    assert get_settings(DatabaseSettings).mode == "TEST"
 
     async with async_engine.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)
@@ -61,14 +61,15 @@ def event_loop(request):
 @pytest.fixture(scope="function")
 async def ac():
     """Async_Client.
-    Клиент может быть использован для отправки HTTP-запросов к тестируемому веб-приложению"""
+    Клиент может быть использован для отправки HTTP-запросов к тестируемому веб-приложению
+    """
     async with AsyncClient(app=create_fastapi_app(), base_url="http://test") as ac:
         yield ac
 
 
 @pytest.fixture(scope="session")
 async def authenticated_ac():
-    """HTTP-запросы к тестируемому веб-приложению с аутентификацией.    """
+    """HTTP-запросы к тестируемому веб-приложению с аутентификацией."""
     async with AsyncClient(app=create_fastapi_app(), base_url="http://test") as ac:
         await ac.post(
             "/auth/login",

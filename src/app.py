@@ -2,6 +2,7 @@ import contextlib
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
 # from fastapi.staticfiles import StaticFiles
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
@@ -12,7 +13,10 @@ from entities.bookings.router import router_bookings
 from entities.hotels.router import router_hotels
 from entities.rooms.router import router_rooms
 from entities.users.router import router_users
-from settings import app_settings, redis_settings
+from settings import AppSettings, RedisSettings, get_settings
+
+_app_settings = get_settings(AppSettings)
+_redis_settings = get_settings(RedisSettings)
 
 
 @contextlib.asynccontextmanager
@@ -21,7 +25,7 @@ async def _lifespan(app: FastAPI):
     'yield' - место работы приложения. Соответственно,
     все до и после 'yield' - это процессы в начале работы приложения и в его конце."""
     redis = aioredis.from_url(
-        f"redis://{redis_settings.HOST}:{redis_settings.PORT}",
+        f"redis://{_redis_settings.host}:{_redis_settings.port}",
         encoding="utf8",
         decode_responses=True,
     )
@@ -53,7 +57,7 @@ def _add_middlewares(app: FastAPI) -> None:
         # Набор правил для браузеров, мобильных приложений и серверов, по которым они
         # могут взаимодействовать с API.
         CORSMiddleware,
-        allow_origins=app_settings.ALLOW_ORIGINS,  # допущенные к API домены
+        allow_origins=_app_settings.allow_origins,  # допущенные к API домены
         allow_credentials=True,  # позволяет передавать куки
         allow_methods=["GET", "POST", "OPTIONS", "DELETE", "PATCH", "PUT"],
         allow_headers=[  # HTTP-заголовки

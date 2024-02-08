@@ -3,11 +3,11 @@ from datetime import datetime
 
 from pythonjsonlogger import jsonlogger
 
-from settings import log_settings
+from settings import LogSettings, get_settings
 
 logger = logging.getLogger()
-
 logHandler = logging.StreamHandler()
+_log_settings = get_settings(LogSettings)
 
 
 class CustomJsonFormatter(jsonlogger.JsonFormatter):
@@ -28,4 +28,4 @@ formatter = CustomJsonFormatter(
 
 logHandler.setFormatter(formatter)
 logger.addHandler(logHandler)
-logger.setLevel(log_settings.LEVEL)
+logger.setLevel(_log_settings.level)
