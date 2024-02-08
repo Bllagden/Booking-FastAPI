@@ -5,11 +5,46 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python Debugger: Current File",
+            // export PYTHONPATH=src
+            // pdm run main.py
+            "name": "Booking FastAPI",
             "type": "debugpy",
             "request": "launch",
-            "program": "${file}",
+            "program": "main.py", // "${file}"
             "console": "integratedTerminal",
+            "env": {"PYTHONPATH": "src"},
+        },
+        {
+            // export PYTHONPATH=src
+            // pdm run celery -A src.tasks.celery:celery worker --loglevel=INFO
+            // pdm run celery -A src.tasks.celery:celery worker --loglevel=INFO --pool=solo	(Windows)
+            "name": "Celery Worker",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/.venv/Scripts/celery.exe",
+            "console": "integratedTerminal",
+            "args": [
+                "-A",
+                "src.tasks.celery:celery",
+                "worker",
+                "--loglevel=INFO",
+                "--pool=solo"
+            ],
+            "env": {"PYTHONPATH": "src"},
+        },
+        {   
+            // export PYTHONPATH=src
+            // pdm run celery -A src.tasks.celery:celery flower
+            "name": "Celery Flower",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/.venv/Scripts/celery.exe",
+            "console": "integratedTerminal",
+            "args": [
+                "-A",
+                "src.tasks.celery:celery",
+                "flower"
+            ],
             "env": {"PYTHONPATH": "src"},
         }
     ]

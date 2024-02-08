@@ -1,6 +1,5 @@
-import os
-import sys
+import dotenv
 
-sys.path.insert(1, os.path.join(sys.path[0], "src"))
+dotenv.load_dotenv(".dev.env")
 
 from .tasks import send_booking_confirmation_email  # noqa: F401, E402
