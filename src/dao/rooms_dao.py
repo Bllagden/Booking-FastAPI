@@ -1,10 +1,11 @@
 from sqlalchemy import insert
 from sqlalchemy.exc import SQLAlchemyError
 
-from base_dao import BaseDAO
 from db.engine import async_session_factory
 from db.models import Rooms
 from logger import logger
+
+from .base_dao import BaseDAO
 
 
 class RoomsDAO(BaseDAO):

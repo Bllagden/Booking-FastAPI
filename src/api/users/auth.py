@@ -5,26 +5,25 @@ from passlib.context import CryptContext
 from pydantic import EmailStr
 from sqlalchemy.engine.row import RowMapping
 
+from dao import UsersDAO
 from exceptions import IncorrectEmailOrPasswordException
 from settings import AuthSettings, get_settings
 
-from .dao import UsersDAO
-
 # Контекст для хеширования паролей с использованием алгоритма bcrypt
 # Класс CryptContext имеет методы hash, verify и тд. для работы с паролями
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+_pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 _auth_settings = get_settings(AuthSettings)
 
 
 def get_password_hash(password: str) -> str:
     """Получает пароль, делает из него хеш и возвращает его."""
-    return pwd_context.hash(password)
+    return _pwd_context.hash(password)
 
 
 def verify_password(plain_password: str, hashes_password: str) -> bool:
     """Получает пароль и хеш ?этого? пароля из БД, возвращает bool их сравнения."""
-    return pwd_context.verify(plain_password, hashes_password)
+    return _pwd_context.verify(plain_password, hashes_password)
 
 
 def create_access_token(data: dict) -> str:

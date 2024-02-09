@@ -9,10 +9,7 @@ from fastapi_cache.backends.redis import RedisBackend
 from redis import asyncio as aioredis
 
 from admin import create_admin
-from entities.bookings.router import router_bookings
-from entities.hotels.router import router_hotels
-from entities.rooms.router import router_rooms
-from entities.users.router import router_users
+from api import router_bookings, router_hotels, router_rooms, router_users
 from settings import AppSettings, RedisSettings, get_settings
 
 _app_settings = get_settings(AppSettings)

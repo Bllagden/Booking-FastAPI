@@ -2,7 +2,7 @@ from datetime import datetime
 
 import pytest
 
-from entities.bookings.dao import BookingDAO
+from dao import BookingDAO
 
 """pytest --envfile .test.env tests/integration_tests/test_bookings/test_dao.py -s -v"""
 

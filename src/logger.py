@@ -6,7 +6,7 @@ from pythonjsonlogger import jsonlogger
 from settings import LogSettings, get_settings
 
 logger = logging.getLogger()
-logHandler = logging.StreamHandler()
+_logHandler = logging.StreamHandler()
 _log_settings = get_settings(LogSettings)
 
 
@@ -26,6 +26,6 @@ formatter = CustomJsonFormatter(
     "%(timestamp)s %(level)s %(message)s %(module)s %(funcName)s"
 )
 
-logHandler.setFormatter(formatter)
-logger.addHandler(logHandler)
+_logHandler.setFormatter(formatter)
+logger.addHandler(_logHandler)
 logger.setLevel(_log_settings.level)

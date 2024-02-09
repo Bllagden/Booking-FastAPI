@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends
 from pydantic import TypeAdapter
 
+from dao import HotelsDAO
 from db.models import Users
 from exceptions import HotelCannotBeCreated
 
 from ..users.dependencies import get_current_user
-from .dao import HotelsDAO
 from .schemas import SHotels, SNewHotel
 
 router_hotels = APIRouter(prefix="/hotels", tags=["Отели"])

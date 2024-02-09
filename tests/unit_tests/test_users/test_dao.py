@@ -1,6 +1,6 @@
 import pytest
 
-from entities.users.dao import UsersDAO
+from dao import UsersDAO
 
 """pytest --envfile .test.env tests/unit_tests/test_users/test_dao.py -s -v"""
 

@@ -4,11 +4,11 @@ from fastapi import APIRouter, Depends
 from fastapi_cache.decorator import cache
 from pydantic import TypeAdapter
 
+from dao import RoomsDAO
 from db.models import Users
 from exceptions import RoomCannotBeCreated
 
 from ..users.dependencies import get_current_user
-from .dao import RoomsDAO
 from .schemas import SNewRoom, SRooms
 
 router_rooms = APIRouter(

@@ -1,6 +1,7 @@
 from fastapi import Depends, Request
 from jose import ExpiredSignatureError, JWTError, jwt
 
+from dao import UsersDAO
 from exceptions import (
     IncorrectTokenFormatException,
     TokenAbsentException,
@@ -8,8 +9,6 @@ from exceptions import (
     UserIsNotPresentException,
 )
 from settings import AuthSettings, get_settings
-
-from .dao import UsersDAO
 
 _auth_settings = get_settings(AuthSettings)
 
