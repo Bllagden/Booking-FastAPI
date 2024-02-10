@@ -1,6 +1,6 @@
 import dotenv
 
-dotenv.load_dotenv(".dev.env")
+dotenv.load_dotenv(".env.dev")
 
 from .tasks import send_booking_confirmation_email  # noqa: E402
 

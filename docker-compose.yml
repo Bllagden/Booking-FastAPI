@@ -19,7 +19,7 @@ services:
     image: postgres:16
     container_name: booking_db
     env_file:
-      - .prod.env
+      - .env.prod
     # network_mode: host
     ports:
       - 5433:5432
@@ -38,7 +38,7 @@ services:
       context: .
     container_name: booking_app
     env_file:
-      - .prod.env
+      - .env.prod
     depends_on:
       - postgres-db
       # - redis
@@ -56,7 +56,7 @@ services:
   #    context: .
   #  container_name: booking_celery
   #  env_file:
-  #    - .prod.env
+  #    - .env.prod
   #  depends_on:
   #    - redis
   #  command: ["/booking/docker/celery.sh", "celery"]
@@ -67,7 +67,7 @@ services:
   #    context: .
   #  container_name: booking_flower
   #  env_file:
-  #    - .prod.env
+  #    - .env.prod
   #  depends_on:
   #    - redis
   #  command: ["/booking/docker/celery.sh", "flower"]

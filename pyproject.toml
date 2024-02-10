@@ -46,7 +46,7 @@ profile = "black"
 pythonpath = "src"
 asyncio_mode = "auto"
 env_files = [
-    ".test.env",
+    ".env.test",
 ]
 
 [tool.pdm.scripts]

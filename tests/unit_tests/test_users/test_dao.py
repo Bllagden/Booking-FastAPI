@@ -2,7 +2,7 @@ import pytest
 
 from dao import UsersDAO
 
-"""pytest --envfile .test.env tests/unit_tests/test_users/test_dao.py -s -v"""
+"""pytest --envfile .env.test tests/unit_tests/test_users/test_dao.py -s -v"""
 
 
 @pytest.mark.parametrize(

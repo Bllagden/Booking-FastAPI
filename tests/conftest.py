@@ -11,7 +11,7 @@ from db import Base, async_engine, async_session_factory
 from db.models import Bookings, Hotels, Rooms, Users
 from settings import DatabaseSettings, get_settings
 
-"""pytest --envfile .test.env -s -v"""
+"""pytest --envfile .env.test -s -v"""
 
 
 @pytest.fixture(scope="session", autouse=True)

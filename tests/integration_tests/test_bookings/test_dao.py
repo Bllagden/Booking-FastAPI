@@ -4,7 +4,7 @@ import pytest
 
 from dao import BookingDAO
 
-"""pytest --envfile .test.env tests/integration_tests/test_bookings/test_dao.py -s -v"""
+"""pytest --envfile .env.test tests/integration_tests/test_bookings/test_dao.py -s -v"""
 
 
 @pytest.mark.parametrize(

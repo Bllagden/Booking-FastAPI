@@ -1,7 +1,7 @@
 import pytest
 from httpx import AsyncClient
 
-"""pytest --envfile .test.env tests/integration_tests/test_bookings/test_api.py -s -v"""
+"""pytest --envfile .env.test tests/integration_tests/test_bookings/test_api.py -s -v"""
 
 
 @pytest.mark.parametrize(

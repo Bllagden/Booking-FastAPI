@@ -9,14 +9,16 @@ README.md
 documentation_images
 
 .pytest_cache
-.venv
-venv
-
 .pdm-python
-.dev.env
-.dev.env_example
-.test.env_example
-.prod.env_example
+
+venv
+.venv
+.env.dev
+.env.test
+.env.prod
+.env_example.dev
+.env_example.test
+.env_example.prod
 
 Dockerfile
 docker-compose.yml
