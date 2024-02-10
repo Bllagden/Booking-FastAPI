@@ -28,7 +28,7 @@
                 "src.tasks.celery:celery",
                 "worker",
                 "--loglevel=INFO",
-                "--pool=solo"
+                "--pool=solo" // Windows
             ],
             "env": {"PYTHONPATH": "src"},
         },

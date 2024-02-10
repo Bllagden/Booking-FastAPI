@@ -1,1 +1,5 @@
-from .admin import create_admin  # noqa: F401
+from .admin import create_admin
+
+__all__ = [
+    "create_admin",
+]
