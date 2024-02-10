@@ -1,19 +1,19 @@
 version: "3.8"
 services:
-  # nginx:
-  #   image: booking_nginx_i
-  #   build:
-  #     context: .
-  #     dockerfile: "Dockerfile.nginx"
-  #   container_name: booking_nginx
-  #   ports:
-  #      - 80:80
-  #      - 443:443
-  #   links:
-  #      - booking
-  #      # - flower
-  #   volumes:
-  #     - booking_static:/static
+  nginx:
+    image: booking_nginx_i
+    build:
+      context: ./docker
+      dockerfile: "Dockerfile.nginx"
+    container_name: booking_nginx
+    ports:
+       - 80:80
+       - 443:443
+    links:
+       - booking
+       - flower
+    # volumes:
+    #   - booking_static:/static
   
   postgres-db:
     image: postgres:16
@@ -26,11 +26,11 @@ services:
     volumes:
       - booking_pg_data:/var/lib/postgresql/data
 
-  # redis:
-  #   image: redis:7
-  #   container_name: booking_redis
-  #   # ports:
-  #   #   - 6379:6379
+  redis:
+    image: redis:7
+    container_name: booking_redis
+    # ports:
+    #   - 6379:6379
 
   booking:
     image: booking_app_i
@@ -41,38 +41,40 @@ services:
       - .env.prod
     depends_on:
       - postgres-db
-      # - redis
-    # command: ["/booking/docker/app.sh"]
-    command: bash -c "sleep 5 && alembic upgrade head && uvicorn app:create_app --factory --host 0.0.0.0"
-    # restart: always
+      - redis
+    # ports:
+    #   - 7777:8000
     # volumes:
     #   - booking_static:/booking/static
-    ports:
-      - 7777:8000
+    # restart: always
+    # command: ["/booking/docker/app.sh"]
+    command: bash -c "sleep 5 && alembic upgrade head && uvicorn app:create_app --factory --host 0.0.0.0"
 
-  #celery:
-  #  image: booking_celery_i
-  #  build:
-  #    context: .
-  #  container_name: booking_celery
-  #  env_file:
-  #    - .env.prod
-  #  depends_on:
-  #    - redis
-  #  command: ["/booking/docker/celery.sh", "celery"]
-#
-  #flower:
-  #  image: booking_flower_i
-  #  build:
-  #    context: .
-  #  container_name: booking_flower
-  #  env_file:
-  #    - .env.prod
-  #  depends_on:
-  #    - redis
-  #  command: ["/booking/docker/celery.sh", "flower"]
-  #  # ports:
-  #  #   - 5555:5555
+  celery:
+    image: booking_celery_i
+    build:
+      context: .
+    container_name: booking_celery
+    env_file:
+      - .env.prod
+    depends_on:
+      - redis
+    # command: ["/booking/docker/celery.sh", "celery"]
+    command: bash -c "celery --app=src.tasks.celery:celery worker -l INFO"
+
+  flower:
+    image: booking_flower_i
+    build:
+      context: .
+    container_name: booking_flower
+    env_file:
+      - .env.prod
+    depends_on:
+      - redis
+    # ports:
+    #   - 5555:5555
+    #command: ["/booking/docker/celery.sh", "flower"]
+    command: bash -c "celery --app=src.tasks.celery:celery flower --url_prefix=/flower"
 
 volumes:
   booking_pg_data:

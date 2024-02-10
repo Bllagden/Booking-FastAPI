@@ -21,7 +21,6 @@ RUN pip install --no-cache-dir -r requirements.txt --user --no-dependencies
 
 COPY ./src ./src
 COPY alembic.ini .
-# COPY ./docker ./docker
 # ENTRYPOINT ["uvicorn", "adapters.api.app:create_app", "--factory", "--loop", "uvloop", "--host", "0.0.0.0"]
 
 
