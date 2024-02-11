@@ -81,16 +81,16 @@
     >```
 
 8) Настройка Celery:
-    <br />
-    Включить двухэтапную аутентификацию и создать пароль приложения в настройках Google аккаунта для отправки электронных писем через `Celery`. Добавить пароль приложения и почту в `.env` файлы (SMTP).
+
+       Включить двухэтапную аутентификацию и создать пароль приложения в настройках Google аккаунта для отправки электронных писем через `Celery`. Добавить пароль приложения и почту в `.env` файлы (SMTP).
     
 9) Запуск:
-    <br />
-    Запустить `redis-server`;
     
-    Открыть `Booking-FastAPI` через VSCode и из `Run and Debug` запустить:
-    <br />
-    `Booking FastAPI`, `Celery Worker` и `Celery Flower`.
+    >Запустить `redis-server`;
+    
+    >Открыть `Booking-FastAPI` через VSCode и из `Run and Debug` запустить:
+    ><br />
+    >`Booking FastAPI`, `Celery Worker` и `Celery Flower`.
 
 
 10) Доступ:
@@ -116,7 +116,7 @@
     (`.env.dev` и `.env.test` необязательны)
     
 3) Настройка Celery:
-    <br />
+
     Включить двухэтапную аутентификацию и создать пароль приложения в настройках Google аккаунта для отправки электронных писем через `Celery`. Добавить пароль приложения и почту в `.env` файлы (SMTP).
     
 4) Запуск:
@@ -124,13 +124,13 @@
     docker-compose up
     ```
 
-
 5) Доступ:
-    >API: `http://YOUR_IP/docs`
-    ><br />
-    >Admin: `http://YOUR_IP/admin`
-    ><br />
-    >Flower: `http://YOUR_IP/flower/`
+    
+    API: `http://YOUR_IP/docs`
+    <br />
+    Admin: `http://YOUR_IP/admin`
+    <br />
+    Flower: `http://YOUR_IP/flower/`
 
 
 ## Доработки
