@@ -1,5 +1,5 @@
 # Описание
-> **Booking-FastAPI - это упрощенный сервис Бронирования Отелей. Он позволяет зарегистрироваться, забронировать отель и отменить бронь.**
+**Booking-FastAPI - это упрощенный сервис Бронирования Отелей. Он позволяет зарегистрироваться, забронировать отель и отменить бронь.**
 
 ![](documentation_images/docs_base.png)
 
@@ -11,7 +11,7 @@
 -	Подключил JWT для обеспечения безопасности и управления сессиями пользователей;
 -	Добавил админ-панель (библиотека SQLAdmin совместимая с SQLAlchemy и FastAPI);
 -	Для написания и выполнения тестов выбрал Pytest;
--	Применил Docker-Compose для связи нескольких сервисов (главное приложение, Nginx, Postgres-DB, Redis, Celery);
+-	Применил Docker-Compose для связи нескольких сервисов (API, Postgres-DB, Redis, Celery, Flower, Nginx);
 -	Настроил Nginx для работы на локальном хосте;
 -	Использовал инструменты для разработки: PDM, Ruff, Black, isort.
 
@@ -26,17 +26,20 @@
 ### Бронирования
 ![](documentation_images/admin_3_bookings.png)
 
-## Замена .env файла для тестов
-При тестировании файл `.env.dev` заменяется на `.env.test`, в котором находятся настройки тестовой БД.
+## Замена .env файлов
+>При запуске через `Docker Compose` файл `.env.dev` заменяется на `.env.prod` (настройка docker-compose.yml).
 
-Замена производится с помощью библиотеки `pytest-dotenv`.
-
-Для этого достаточно добавить в `pyproject.toml`:
+>При тестировании файл `.env.dev` заменяется на `.env.test`.
+>
+>Замена производится с помощью библиотеки `pytest-dotenv`.
+>
+>Для этого достаточно добавить в `pyproject.toml`:
+><br />
 >`[tool.pytest.ini_options]`
 ><br />
 >`env_files = [".env.test",]`
 
-Для запуска из консоли необходими указывать `.env` файл:
+>Для запуска тестов из консоли необходимо еще раз явно указать `.env` файл:
 >```
 >pdm run pytest --envfile .env.test -s -v
 >```
@@ -63,7 +66,7 @@
 6) Создать .env файлы:
     >`.env.dev`, `.env.test` и `.env.prod` по аналогии с:
     >
-    > `.env_example.dev`,`.env_example.test` и `.env_example.prod`
+    > `.env_example.dev`, `.env_example.test` и `.env_example.prod`
     >
     > (`.env.prod` необязателен)
 
@@ -104,7 +107,7 @@
 2) Создать .env файлы:
     >`.env.dev`, `.env.test` и `.env.prod` по аналогии с:
     >
-    > `.env_example.dev`,`.env_example.test` и `.env_example.prod`
+    > `.env_example.dev`, `.env_example.test` и `.env_example.prod`
     >
     > (`.env.dev` и `.env.test` необязательны)
     
