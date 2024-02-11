@@ -27,22 +27,20 @@
 ![](documentation_images/admin_3_bookings.png)
 
 ## Замена .env файлов
->При запуске через `Docker Compose` файл `.env.dev` заменяется на `.env.prod` (настройка docker-compose.yml).
+При запуске через `Docker Compose` файл `.env.dev` заменяется на `.env.prod` (настройка docker-compose.yml).
 
->При тестировании файл `.env.dev` заменяется на `.env.test`.
->
->Замена производится с помощью библиотеки `pytest-dotenv`.
->
->Для этого достаточно добавить в `pyproject.toml`:
-><br />
->`[tool.pytest.ini_options]`
-><br />
->`env_files = [".env.test",]`
+При тестировании файл `.env.dev` заменяется на `.env.test` (с помощью библиотеки `pytest-dotenv`).
+<br />
+Для этого в `pyproject.toml` добавлено:
+<br />
+`[tool.pytest.ini_options]`
+<br />
+`env_files = [".env.test",]`
 
->Для запуска тестов из консоли необходимо еще раз явно указать `.env` файл:
->```
->pdm run pytest --envfile .env.test -s -v
->```
+Для запуска тестов из консоли необходимо явно указать `.env` файл:
+```
+pdm run pytest --envfile .env.test -s -v
+```
 
 ## Запуск через VS Code
 1) Установить [Postgres](https://www.postgresql.org/)
@@ -64,7 +62,7 @@
     ```
 
 6) Создать .env файлы:
-    <br />
+    
     `.env.dev`, `.env.test` и `.env.prod` по аналогии с:
     <br />
     `.env_example.dev`, `.env_example.test` и `.env_example.prod`
@@ -72,33 +70,35 @@
     (`.env.prod` необязателен)
 
 7) Настройка БД:
-    >Создать Postgres-DB и вписать настройки для подключения к ней в `.env` файлы.
     
-    >Находясь в корне `Booking-FastAPI` сделать миграцию:
-    ><br />
-    >```
-    >pdm run alembic upgrade head
-    >```
+    Создать Postgres-DB и вписать настройки для подключения к ней в `.env` файлы.
+    
+    Находясь в корне `Booking-FastAPI` сделать миграцию:
+    <br />
+    ```
+    pdm run alembic upgrade head
+    ```
 
 8) Настройка Celery:
 
-       Включить двухэтапную аутентификацию и создать пароль приложения в настройках Google аккаунта для отправки электронных писем через `Celery`. Добавить пароль приложения и почту в `.env` файлы (SMTP).
+    Включить двухэтапную аутентификацию и создать пароль приложения в настройках Google аккаунта для отправки электронных писем через `Celery`. Добавить пароль приложения и почту в `.env` файлы (SMTP).
     
 9) Запуск:
     
-    >Запустить `redis-server`;
+    Запустить `redis-server`;
     
-    >Открыть `Booking-FastAPI` через VSCode и из `Run and Debug` запустить:
-    ><br />
-    >`Booking FastAPI`, `Celery Worker` и `Celery Flower`.
+    Открыть `Booking-FastAPI` через VSCode и из `Run and Debug` запустить:
+    <br />
+    `Booking FastAPI`, `Celery Worker` и `Celery Flower`.
 
 
 10) Доступ:
-    >API: http://127.0.0.1:8000/docs
-    ><br />
-    >Admin: http://127.0.0.1:8000/admin
-    ><br />
-    >Flower: http://127.0.0.1:5555
+    
+    API: http://127.0.0.1:8000/docs
+    <br />
+    Admin: http://127.0.0.1:8000/admin
+    <br />
+    Flower: http://127.0.0.1:5555
 
 ## Запуск через Docker
 1) Склонировать репозиторий:
@@ -108,7 +108,7 @@
     ```
 
 2) Создать .env файлы:
-    <br />
+    
     `.env.dev`, `.env.test` и `.env.prod` по аналогии с:
     <br />
     `.env_example.dev`, `.env_example.test` и `.env_example.prod`
