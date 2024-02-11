@@ -7,14 +7,14 @@ services:
       dockerfile: "Dockerfile.nginx"
     container_name: booking_nginx
     ports:
-       - 80:80
-       - 443:443
+      - 80:80
+      - 443:443
     links:
-       - booking
-       - flower
+      - booking
+      - flower
     # volumes:
     #   - booking_static:/static
-  
+
   postgres-db:
     image: postgres:16
     container_name: booking_db
