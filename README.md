@@ -11,7 +11,7 @@
 -	Подключил JWT для обеспечения безопасности и управления сессиями пользователей;
 -	Добавил админ-панель (библиотека SQLAdmin совместимая с SQLAlchemy и FastAPI);
 -	Для написания и выполнения тестов выбрал Pytest;
--	Применил Docker Compose для связи нескольких сервисов (главное приложение, Nginx, Postgres-DB, Redis, Celery);
+-	Применил Docker-Compose для связи нескольких сервисов (главное приложение, Nginx, Postgres-DB, Redis, Celery);
 -	Настроил Nginx для работы на локальном хосте;
 -	Использовал инструменты для разработки: PDM, Ruff, Black, isort.
 
@@ -37,7 +37,7 @@
 > `env_files = [".env.test",]`
 
 Для запуска из консоли необходими указывать `.env` файл:
-> `pytest --envfile .env.test -s -v`
+> ```pdm run pytest --envfile .env.test -s -v```
 
 ## Запуск через VS Code
 1) Установить [Postgres](https://www.postgresql.org/)
@@ -68,7 +68,9 @@
 7) Настройка БД:
     >Создать Postgres-DB и вписать настройки для подключения к ней в `.env` файлы.
     >
-    >Находясь в корне `Booking-FastAPI` сделать миграцию: `pdm run alembic upgrade head`
+    >Находясь в корне `Booking-FastAPI` сделать миграцию:
+    >
+    >```pdm run alembic upgrade head```
 
 8) Настройка Celery:
     >Включить двухэтапную аутентификацию и создать пароль приложения в настройках Google аккаунта для отправки электронных писем через `Celery`. Добавить пароль приложения и почту в `.env` файлы (SMTP).
@@ -77,6 +79,7 @@
     >Запустить `redis-server`;
     >
     >Открыть `Booking-FastAPI` через VSCode и из `Run and Debug` запустить:
+    >
     >`Booking FastAPI`, `Celery Worker` и `Celery Flower`.
 
 
@@ -105,7 +108,7 @@
     >Включить двухэтапную аутентификацию и создать пароль приложения в настройках Google аккаунта для отправки электронных писем через `Celery`. Добавить пароль приложения и почту в `.env` файлы (SMTP).
     
 4) Запуск:
-    >docker-compose up
+    >```docker-compose up```
 
 
 5) Доступ:
