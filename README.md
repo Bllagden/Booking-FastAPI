@@ -32,9 +32,9 @@
 Замена производится с помощью библиотеки `pytest-dotenv`.
 
 Для этого достаточно добавить в `pyproject.toml`:
-> `[tool.pytest.ini_options]`
-> <br />
-> `env_files = [".env.test",]`
+>`[tool.pytest.ini_options]`
+><br />
+>`env_files = [".env.test",]`
 
 Для запуска из консоли необходими указывать `.env` файл:
 >```
@@ -50,10 +50,10 @@
 3) Установить [PDM](https://pdm-project.org/latest/)
 
 4) Склонировать репозиторий:
-   >```
-   >git clone git@github.com:Bllagden/Booking-FastAPI.git
-   >cd Booking-FastAPI
-   >```
+    >```
+    >git clone git@github.com:Bllagden/Booking-FastAPI.git
+    >cd Booking-FastAPI
+    >```
 
 5) Установить зависимости:
     >```
@@ -96,10 +96,10 @@
 
 ## Запуск через Docker
 1) Склонировать репозиторий:
-   >```
-   >git clone git@github.com:Bllagden/Booking-FastAPI.git
-   >cd Booking-FastAPI
-   >```
+    >```
+    >git clone git@github.com:Bllagden/Booking-FastAPI.git
+    >cd Booking-FastAPI
+    >```
 
 2) Создать .env файлы:
     >`.env.dev`, `.env.test` и `.env.prod` по аналогии с:
