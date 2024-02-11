@@ -1,14 +1,14 @@
 # import functools
 from typing import Literal, TypeVar
 
-import dotenv
+# import dotenv
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 TSettings = TypeVar("TSettings", bound=BaseSettings)
 
 
 def get_settings(cls: type[TSettings]) -> TSettings:
-    dotenv.load_dotenv()
+    # dotenv.load_dotenv()
     return cls()
 
 
@@ -16,7 +16,12 @@ def get_settings(cls: type[TSettings]) -> TSettings:
 
 
 class DatabaseSettings(BaseSettings):
-    model_config = SettingsConfigDict(str_strip_whitespace=True, env_prefix="db_")
+    """При тестировании '.env.dev' меняется на '.env.test' библиотекой pytest-dotenv.
+    При запуске Docker-Compose '.env.dev' меняется на '.env.prod' докером."""
+
+    model_config = SettingsConfigDict(
+        env_file=".env.dev", str_strip_whitespace=True, env_prefix="db_"
+    )
 
     mode: Literal["DEV", "TEST", "PROD"]
     driver: str
