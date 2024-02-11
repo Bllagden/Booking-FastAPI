@@ -53,78 +53,83 @@
 3) Установить [PDM](https://pdm-project.org/latest/)
 
 4) Склонировать репозиторий:
-    >```
-    >git clone git@github.com:Bllagden/Booking-FastAPI.git
-    >cd Booking-FastAPI
-    >```
+    ```
+    git clone git@github.com:Bllagden/Booking-FastAPI.git
+    cd Booking-FastAPI
+    ```
 
 5) Установить зависимости:
-    >```
-    >pdm install
-    >```
+    ```
+    pdm install
+    ```
 
 6) Создать .env файлы:
-    >`.env.dev`, `.env.test` и `.env.prod` по аналогии с:
-    >
-    > `.env_example.dev`, `.env_example.test` и `.env_example.prod`
-    >
-    > (`.env.prod` необязателен)
+    <br />
+    `.env.dev`, `.env.test` и `.env.prod` по аналогии с:
+    <br />
+    `.env_example.dev`, `.env_example.test` и `.env_example.prod`
+    <br />
+    (`.env.prod` необязателен)
 
 7) Настройка БД:
     >Создать Postgres-DB и вписать настройки для подключения к ней в `.env` файлы.
-    >
+    
     >Находясь в корне `Booking-FastAPI` сделать миграцию:
-    >
+    ><br />
     >```
     >pdm run alembic upgrade head
     >```
 
 8) Настройка Celery:
-    >Включить двухэтапную аутентификацию и создать пароль приложения в настройках Google аккаунта для отправки электронных писем через `Celery`. Добавить пароль приложения и почту в `.env` файлы (SMTP).
+    <br />
+    Включить двухэтапную аутентификацию и создать пароль приложения в настройках Google аккаунта для отправки электронных писем через `Celery`. Добавить пароль приложения и почту в `.env` файлы (SMTP).
     
 9) Запуск:
-    >Запустить `redis-server`;
-    >
-    >Открыть `Booking-FastAPI` через VSCode и из `Run and Debug` запустить:
-    >
-    >`Booking FastAPI`, `Celery Worker` и `Celery Flower`.
+    <br />
+    Запустить `redis-server`;
+    
+    Открыть `Booking-FastAPI` через VSCode и из `Run and Debug` запустить:
+    <br />
+    `Booking FastAPI`, `Celery Worker` и `Celery Flower`.
 
 
 10) Доступ:
     >API: http://127.0.0.1:8000/docs
-    >
+    ><br />
     >Admin: http://127.0.0.1:8000/admin
-    >
+    ><br />
     >Flower: http://127.0.0.1:5555
 
 ## Запуск через Docker
 1) Склонировать репозиторий:
-    >```
-    >git clone git@github.com:Bllagden/Booking-FastAPI.git
-    >cd Booking-FastAPI
-    >```
+    ```
+    git clone git@github.com:Bllagden/Booking-FastAPI.git
+    cd Booking-FastAPI
+    ```
 
 2) Создать .env файлы:
-    >`.env.dev`, `.env.test` и `.env.prod` по аналогии с:
-    >
-    > `.env_example.dev`, `.env_example.test` и `.env_example.prod`
-    >
-    > (`.env.dev` и `.env.test` необязательны)
+    <br />
+    `.env.dev`, `.env.test` и `.env.prod` по аналогии с:
+    <br />
+    `.env_example.dev`, `.env_example.test` и `.env_example.prod`
+    <br />
+    (`.env.dev` и `.env.test` необязательны)
     
 3) Настройка Celery:
-    >Включить двухэтапную аутентификацию и создать пароль приложения в настройках Google аккаунта для отправки электронных писем через `Celery`. Добавить пароль приложения и почту в `.env` файлы (SMTP).
+    <br />
+    Включить двухэтапную аутентификацию и создать пароль приложения в настройках Google аккаунта для отправки электронных писем через `Celery`. Добавить пароль приложения и почту в `.env` файлы (SMTP).
     
 4) Запуск:
-    >```
-    >docker-compose up
-    >```
+    ```
+    docker-compose up
+    ```
 
 
 5) Доступ:
     >API: `http://YOUR_IP/docs`
-    >
+    ><br />
     >Admin: `http://YOUR_IP/admin`
-    >
+    ><br />
     >Flower: `http://YOUR_IP/flower/`
 
 
