@@ -133,5 +133,36 @@ pdm run pytest --envfile .env.test -s -v
     Flower: `http://YOUR_IP/flower/`
 
 
+## Первичное заполнение БД
+Для заполнения `DEV-DB` или `PROD-DB` можно использовать данные (запросы) из файла `src/db/initial_data.sql`.
+
+Настройки для PgAdmin, если взять их из `.env_examples`:
+>`DEV-DB` (необходимо создать для запуска из VSCode)
+>
+>Host: `localhost`
+><br />
+>Port: `5432`
+><br />
+>Main db: `fastapi_booking_dev`
+><br />
+>Username: `postgres`
+><br />
+>Password: `postgres`
+
+>`PROD-DB` (создается сама в докер-контейнере, есть возможность к ней подключиться извне)
+>
+>Host: `YOUR_IP`
+><br />
+>Port: `5433`
+><br />
+>Main db: `booking_app`
+><br />
+>Username: `postgres_user`
+><br />
+>Password: `postgres_password`
+
+>При тестах `TEST-DB` заполняется сама данными из mock-файлов (создается также, как и `DEV-DB`, но с именем `fastapi_booking_test`)
+
+
 ## Доработки
 Проект на данный момент развернут только в локальной среде. В планах его полное развертывание, правильная работа со статическими файлами через Nginx, внедрение версионирования API и системы авторизации (сейчас у всех аутентифицированных пользователей одинаковые права).
