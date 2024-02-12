@@ -137,31 +137,31 @@ pdm run pytest --envfile .env.test -s -v
 Для заполнения `DEV-DB` или `PROD-DB` можно использовать данные (запросы) из файла `src/db/initial_data.sql`.
 
 Настройки для PgAdmin, если взять их из `.env_examples`:
->`DEV-DB` (необходимо создать для запуска из VSCode)
->
->Host: `localhost`
-><br />
->Port: `5432`
-><br />
->Main db: `fastapi_booking_dev`
-><br />
->Username: `postgres`
-><br />
->Password: `postgres`
 
->`PROD-DB` (создается сама в докер-контейнере, есть возможность к ней подключиться извне)
->
->Host: `YOUR_IP`
-><br />
->Port: `5433`
-><br />
->Main db: `booking_app`
-><br />
->Username: `postgres_user`
-><br />
->Password: `postgres_password`
+1) `DEV-DB` (необходимо создать для запуска приложения из VSCode)
+    >Host: `localhost`
+    ><br />
+    >Port: `5432`
+    ><br />
+    >Main db: `fastapi_booking_dev`
+    ><br />
+    >Username: `postgres`
+    ><br />
+    >Password: `postgres`
 
->При тестах `TEST-DB` заполняется сама данными из mock-файлов (создается также, как и `DEV-DB`, но с именем `fastapi_booking_test`)
+2) `PROD-DB` (создается сама в докер-контейнере, есть возможность подключиться к ней извне)
+    >Host: `YOUR_IP`
+    ><br />
+    >Port: `5433`
+    ><br />
+    >Main db: `booking_app`
+    ><br />
+    >Username: `postgres_user`
+    ><br />
+    >Password: `postgres_password`
+
+3) `TEST-DB` (во время тестов заполняется сама данными из mock-файлов; создается также, как и `DEV-DB`, но с другим именем)
+    >Main db: `fastapi_booking_test`
 
 
 ## Доработки
