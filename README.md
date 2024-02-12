@@ -42,6 +42,17 @@
 pdm run pytest --envfile .env.test -s -v
 ```
 
+
+## Создание секретного ключа для JWT
+`AUTH_SECRET_KEY` в `.env` файлах 
+```
+from secrets import token_bytes
+from base64 import b64encode
+
+print(b64encode(token_bytes(32)).decode())
+```
+
+
 ## Запуск через VS Code
 1) Установить [Postgres](https://www.postgresql.org/)
 
@@ -91,7 +102,6 @@ pdm run pytest --envfile .env.test -s -v
     <br />
     `Booking FastAPI`, `Celery Worker` и `Celery Flower`.
 
-
 10) Доступ:
     
     API: http://127.0.0.1:8000/docs
@@ -99,6 +109,7 @@ pdm run pytest --envfile .env.test -s -v
     Admin: http://127.0.0.1:8000/admin
     <br />
     Flower: http://127.0.0.1:5555
+
 
 ## Запуск через Docker
 1) Склонировать репозиторий:
