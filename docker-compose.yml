@@ -48,7 +48,8 @@ services:
     #   - booking_static:/booking/static
     # restart: always
     # command: ["/booking/docker/app.sh"]
-    command: bash -c "sleep 5 && alembic upgrade head && uvicorn app:create_app --factory --host 0.0.0.0"
+    # command: bash -c "sleep 5 && alembic upgrade head && uvicorn app:create_app --factory --host 0.0.0.0"
+    command: bash -c "./postgres_waiting.sh && alembic upgrade head && uvicorn app:create_app --factory --host 0.0.0.0"
 
   celery:
     image: booking_celery_i
