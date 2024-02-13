@@ -1,0 +1,18 @@
+[project]
+name = ""
+version = ""
+description = ""
+authors = [
+    {name = "Bllagden", email = "bllagden99@gmail.com"},
+]
+requires-python = ">=3.11"
+readme = "README.md"
+license = {text = "MIT"}
+
+dependencies = [
+    "celery>=5.3.6",
+    "flower>=2.0.1",
+    "redis>=4.6.0",
+    "pydantic[email]>=2.6.1",
+    "pydantic-settings>=2.1.0",
+]

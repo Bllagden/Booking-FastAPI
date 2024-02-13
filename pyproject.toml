@@ -12,8 +12,6 @@ license = {text = "MIT"}
 dependencies = [
     "fastapi[uvicorn]>=0.108.0",
     "uvicorn>=0.25.0",
-    "pydantic[email]>=2.5.3",
-    "pydantic-settings>=2.1.0",
     "sqlalchemy>=2.0.23",
     "asyncpg>=0.29.0",
     "alembic>=1.13.1",
@@ -24,8 +22,18 @@ dependencies = [
     "itsdangerous>=2.1.2",
     "gunicorn>=21.2.0",
     "celery>=5.3.6",
-    "flower>=2.0.1",
     "python-json-logger>=2.0.7",
+    "pydantic[email]>=2.6.1",
+    "pydantic-settings>=2.1.0",
+]
+
+[project.optional-dependencies]
+celery = [
+    "celery>=5.3.6",
+    "flower>=2.0.1",
+    "redis>=4.6.0",
+    "pydantic[email]>=2.6.1",
+    "pydantic-settings>=2.1.0",
 ]
 
 [tool.pdm.dev-dependencies]
