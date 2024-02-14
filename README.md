@@ -54,9 +54,8 @@
 При запуске через `Docker Compose` файл `.env.dev` заменяется на `.env.prod` (настройка docker-compose.yml).
 
 При тестировании файл `.env.dev` заменяется на `.env.test` (с помощью библиотеки `pytest-dotenv`).
-<br />
 >Для этого в `pyproject.toml` добавлено:
-<br />
+><br />
 >[tool.pytest.ini_options]
 ><br />
 >env_files = [".env.test",]
@@ -171,8 +170,8 @@ print(b64encode(token_bytes(32)).decode())
     Flower: `http://YOUR_IP/flower/`
 
 ### Контейнеры
->![](documentation_images/docker.png)
-><br />
+![](documentation_images/docker.png)
+
 >Для контейнеров `booking_app`, `booking_nginx` и `booking_celery` написаны отдельные Docker-файлы.
 
 
