@@ -32,7 +32,7 @@ if _db_settings.mode == "TEST":
     DATABASE_PARAMS = {
         "poolclass": NullPool,
     }
-elif _db_settings.mode == "DEV" or _db_settings.mode == "PROD":
+elif _db_settings.mode in {"DEV", "PROD"}:
     DATABASE_PARAMS = {
         "pool_size": 20,
         "pool_pre_ping": True,

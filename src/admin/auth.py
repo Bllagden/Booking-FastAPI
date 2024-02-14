@@ -4,6 +4,7 @@ from starlette.responses import RedirectResponse
 
 from api.users.auth import authenticate_user, create_access_token
 from api.users.dependencies import get_current_user
+from settings import AuthSettings, get_settings
 
 
 class AdminAuth(AuthenticationBackend):
@@ -34,4 +35,4 @@ class AdminAuth(AuthenticationBackend):
         return True
 
 
-authentication_backend = AdminAuth(secret_key="...")
+authentication_backend = AdminAuth(secret_key=get_settings(AuthSettings).secret_key)

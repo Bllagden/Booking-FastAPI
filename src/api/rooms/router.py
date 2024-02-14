@@ -27,8 +27,8 @@ async def get_rooms_by_hotel_id(hotel_id: int) -> list[SRooms]:
 @router_rooms.post("/add")
 async def add_room(
     room: SNewRoom,
-    user: Users = Depends(get_current_user),
-):
+    user: Users = Depends(get_current_user),  # noqa: ARG001, B008
+) -> SNewRoom:
     room = await RoomsDAO.add(
         room.hotel_id,
         room.name,
@@ -42,5 +42,4 @@ async def add_room(
     if not room:
         raise RoomCannotBeCreated
 
-    room = TypeAdapter(SNewRoom).validate_python(room).model_dump()
-    return room
+    return TypeAdapter(SNewRoom).validate_python(room).model_dump()

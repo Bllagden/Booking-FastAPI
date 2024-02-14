@@ -12,15 +12,17 @@ router_hotels = APIRouter(prefix="/hotels", tags=["Отели"])
 
 
 @router_hotels.get("")
-async def get_hotels(user: Users = Depends(get_current_user)) -> list[SHotels]:
+async def get_hotels(
+    user: Users = Depends(get_current_user),  # noqa: ARG001, B008
+) -> list[SHotels]:
     return await HotelsDAO.find_all()
 
 
 @router_hotels.post("/add")
 async def add_hotel(
     hotel: SNewHotel,
-    user: Users = Depends(get_current_user),
-):
+    user: Users = Depends(get_current_user),  # noqa: ARG001, B008
+) -> SNewHotel:
     hotel = await HotelsDAO.add(
         hotel.name,
         hotel.location,
@@ -32,5 +34,4 @@ async def add_hotel(
     if not hotel:
         raise HotelCannotBeCreated
 
-    hotel = TypeAdapter(SNewHotel).validate_python(hotel).model_dump()
-    return hotel
+    return TypeAdapter(SNewHotel).validate_python(hotel).model_dump()

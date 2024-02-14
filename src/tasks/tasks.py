@@ -14,7 +14,7 @@ _smtp_settings = get_settings(SMTPSettings)
 def send_booking_confirmation_email(
     booking: dict,
     email_to: EmailStr,
-):
+) -> None:
     email_to = _smtp_settings.user  # отправка на свою почту
     msg_content = create_booking_confirmation_template(booking, email_to)
 

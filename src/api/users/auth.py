@@ -36,9 +36,11 @@ def create_access_token(data: dict) -> str:
     to_encode.update({"exp": expire})  # {'sub': '1', 'exp': datetime(2023, 12, ...)}
 
     encoded_jwt = jwt.encode(
-        to_encode, _auth_settings.secret_key, _auth_settings.algorithm
+        to_encode,
+        _auth_settings.secret_key,
+        _auth_settings.algorithm,
     )
-    return encoded_jwt
+    return encoded_jwt  # noqa: RET504
 
 
 async def authenticate_user(email: EmailStr, password: str) -> RowMapping:

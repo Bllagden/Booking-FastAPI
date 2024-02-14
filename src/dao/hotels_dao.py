@@ -1,4 +1,4 @@
-from sqlalchemy import insert
+from sqlalchemy import RowMapping, insert
 from sqlalchemy.exc import SQLAlchemyError
 
 from db.engine import async_session_factory
@@ -19,7 +19,7 @@ class HotelsDAO(BaseDAO):
         services: list[str],
         rooms_quantity: int,
         image_id: int,
-    ):
+    ) -> (RowMapping | None):
         try:
             async with async_session_factory() as session:
                 add_hotel = (

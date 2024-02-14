@@ -11,7 +11,7 @@
 -	Подключил `JWT` для обеспечения безопасности и управления сессиями пользователей;
 -	Добавил админ-панель (библиотека `SQLAdmin` совместимая с SQLAlchemy и FastAPI);
 -	Для написания и выполнения тестов выбрал `Pytest`;
--	Применил Docker-Compose для связи нескольких сервисов (API, Postgres-DB, `Redis`, `Celery`, `Flower`, `Nginx`);
+-	Применил Docker-Compose для связи нескольких сервисов (`Nginx`, `API`, `Postgres-DB`, `Redis`, `Celery`, `Flower`);
 -	Настроил `Nginx` для работы на локальном хосте;
 -	Использовал инструменты для разработки: `PDM`, `Ruff`, `Black`, `isort`.
 
@@ -102,7 +102,7 @@ print(b64encode(token_bytes(32)).decode())
     
     Открыть `Booking-FastAPI` через VSCode и из `Run and Debug` запустить:
     <br />
-    `Booking FastAPI`, `Celery Worker` и `Celery Flower`.
+    `Booking FastAPI`, `Celery Worker` и `Celery Flower` (настройки находятся в `.vscode/launch.json`).
 
 8) Доступ:
     

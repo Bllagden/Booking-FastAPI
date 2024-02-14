@@ -24,5 +24,5 @@ class Rooms(Base):
     hotel: Mapped["Hotels"] = relationship(back_populates="rooms")
     bookings: Mapped[list["Bookings"]] = relationship(back_populates="room")
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name

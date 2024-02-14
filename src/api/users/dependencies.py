@@ -1,5 +1,6 @@
 from fastapi import Depends, Request
 from jose import ExpiredSignatureError, JWTError, jwt
+from sqlalchemy import RowMapping
 
 from dao import UsersDAO
 from exceptions import (
@@ -21,7 +22,7 @@ def _get_token(request: Request) -> str:
     return token
 
 
-async def get_current_user(token: str = Depends(_get_token)):
+async def get_current_user(token: str = Depends(_get_token)) -> RowMapping:
     """Получает JWT-токен. Декодирует токен в полезную нагрузку (dict) и проверяет ее.
     Далее, если в ней есть subject (id), ищет его в БД. Если такой есть, возвращает юзера.
     """

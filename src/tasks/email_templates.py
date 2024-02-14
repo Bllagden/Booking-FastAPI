@@ -10,7 +10,7 @@ _smtp_settings = get_settings(SMTPSettings)
 def create_booking_confirmation_template(
     booking: dict,
     email_to: EmailStr,
-):
+) -> EmailMessage:
     email = EmailMessage()
 
     email["Subject"] = "Подтверждение бронирования"

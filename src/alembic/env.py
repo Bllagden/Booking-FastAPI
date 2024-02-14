@@ -1,4 +1,4 @@
-import asyncio
+import asyncio  # noqa: I001
 from logging.config import fileConfig
 
 from alembic import context
@@ -17,7 +17,7 @@ if config.config_file_name is not None:
 
 if not config.get_main_option("sqlalchemy.url"):
     config.set_main_option("sqlalchemy.url", get_settings(DatabaseSettings).url)
-print(get_settings(DatabaseSettings).url)
+print(get_settings(DatabaseSettings).url)  # noqa: T201
 
 target_metadata = Base.metadata
 

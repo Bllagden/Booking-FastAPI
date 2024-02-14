@@ -26,7 +26,7 @@ router_users = APIRouter(prefix="/auth", tags=["Auth & Пользователи"
 
 
 @router_users.post("/register")
-async def register_user(user_data: SUserAuth):
+async def register_user(user_data: SUserAuth) -> None:
     """Создается новый user, если такого еще нет."""
     existing_user = await UsersDAO.find_one_or_none(email=user_data.email)
     if existing_user:
@@ -36,7 +36,7 @@ async def register_user(user_data: SUserAuth):
 
 
 @router_users.post("/login")
-async def login_user(responce: Response, user_data: SUserAuth):
+async def login_user(responce: Response, user_data: SUserAuth) -> dict[str, str]:
     """Если логин/пароль верны, то с помощью HTTP-ответа создается кука с JWT-токеном."""
     user = await authenticate_user(email=user_data.email, password=user_data.password)
     access_token = create_access_token({"sub": str(user.id)})
@@ -45,12 +45,14 @@ async def login_user(responce: Response, user_data: SUserAuth):
 
 
 @router_users.post("/logout")
-async def logout_user(responce: Response):
+async def logout_user(responce: Response) -> None:
     """С помощью HTTP-ответа удаляется кука с JWT-токеном."""
     responce.delete_cookie("booking_access_token")
 
 
 @router_users.get("/me")
-async def read_users_me(current_user: Users = Depends(get_current_user)):
+async def read_users_me(
+    current_user: Users = Depends(get_current_user),  # noqa: B008
+) -> SUserMe:
     """Возвращает id и email аутентифицированного пользователя, либо Exception."""
     return SUserMe(id=current_user.id, email=current_user.email)

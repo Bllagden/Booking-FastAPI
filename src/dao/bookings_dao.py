@@ -1,6 +1,6 @@
 from datetime import date
 
-from sqlalchemy import and_, delete, func, insert, or_, select
+from sqlalchemy import RowMapping, and_, delete, func, insert, or_, select
 from sqlalchemy.exc import SQLAlchemyError
 
 from db.engine import async_session_factory
@@ -21,7 +21,7 @@ class BookingDAO(BaseDAO):
         room_id: int,
         date_from: date,
         date_to: date,
-    ):
+    ) -> (RowMapping | None):
         """
         WITH booked_rooms AS (
             SELECT * FROM bookings
@@ -41,7 +41,7 @@ class BookingDAO(BaseDAO):
                         Bookings.room_id == room_id,
                         Bookings.user_id == user_id,
                         date_from <= Bookings.date_to,
-                    )
+                    ),
                 )
                 result = await session.execute(existing_booking)
                 existing_booking: Bookings | None = result.scalar_one_or_none()
@@ -63,7 +63,7 @@ class BookingDAO(BaseDAO):
                                     Bookings.date_to > date_from,
                                 ),
                             ),
-                        )
+                        ),
                     )
                     .cte("booked_rooms")
                 )
@@ -80,13 +80,15 @@ class BookingDAO(BaseDAO):
                         (
                             Rooms.quantity
                             - func.count(booked_rooms.c.room_id).filter(
-                                booked_rooms.c.room_id.is_not(None)
+                                booked_rooms.c.room_id.is_not(None),
                             )
-                        ).label("rooms_left")
+                        ).label("rooms_left"),
                     )
                     .select_from(Rooms)
                     .join(
-                        booked_rooms, booked_rooms.c.room_id == Rooms.id, isouter=True
+                        booked_rooms,
+                        booked_rooms.c.room_id == Rooms.id,
+                        isouter=True,
                     )
                     .where(Rooms.id == room_id)
                     .group_by(Rooms.quantity, booked_rooms.c.room_id)
@@ -128,8 +130,8 @@ class BookingDAO(BaseDAO):
             if isinstance(e, SQLAlchemyError):
                 msg = "Database Exc: Cannot add booking"
             elif isinstance(e, Exception):
-                msg = "Unknown Exc: Cannot add booking"  # noqa: F841
-            extra = {  # noqa: F841
+                msg = "Unknown Exc: Cannot add booking"
+            extra = {
                 "user_id": user_id,
                 "room_id": room_id,
                 "date_from": date_from,
@@ -138,7 +140,7 @@ class BookingDAO(BaseDAO):
             logger.error(msg, extra=extra, exc_info=True)
 
     @classmethod
-    async def delete(cls, booking_id: int, user_id: int):
+    async def delete(cls, booking_id: int, user_id: int) -> (bool | None):
         try:
             async with async_session_factory() as session:
                 delete_booking = (
@@ -154,8 +156,8 @@ class BookingDAO(BaseDAO):
             if isinstance(e, SQLAlchemyError):
                 msg = "Database Exc: Cannot delete booking"
             elif isinstance(e, Exception):
-                msg = "Unknown Exc: Cannot delete booking"  # noqa: F841
-            extra = {  # noqa: F841
+                msg = "Unknown Exc: Cannot delete booking"
+            extra = {
                 "booking_id": booking_id,
                 "user_id": user_id,
             }

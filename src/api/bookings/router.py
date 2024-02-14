@@ -16,15 +16,17 @@ router_bookings = APIRouter(
 
 
 @router_bookings.get("/get")
-async def get_bookings(user: Users = Depends(get_current_user)) -> list[SBookings]:
+async def get_bookings(
+    user: Users = Depends(get_current_user),  # noqa: B008
+) -> list[SBookings]:
     return await BookingDAO.find_all(user_id=user.id)
 
 
 @router_bookings.post("/add", status_code=200)
 async def add_booking(
     booking: SNewBooking,
-    user: Users = Depends(get_current_user),
-):
+    user: Users = Depends(get_current_user),  # noqa: B008
+) -> SNewBooking:
     booking = await BookingDAO.add(
         user.id,
         booking.room_id,
@@ -43,11 +45,11 @@ async def add_booking(
 @router_bookings.delete("/{booking_id}")
 async def cancel_booking(
     booking_id: int,
-    user: Users = Depends(get_current_user),
-):
+    user: Users = Depends(get_current_user),  # noqa: B008
+) -> dict[str, str]:
     success = await BookingDAO.delete(booking_id, user.id)
 
     if not success:
-        raise BookingNotExist()
+        raise BookingNotExist
 
     return {"message": "Бронь отменена"}

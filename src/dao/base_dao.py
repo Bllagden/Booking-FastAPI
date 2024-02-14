@@ -12,7 +12,7 @@ class BaseDAO:
     model = None
 
     @classmethod
-    async def find_one_or_none(cls, **filter_by) -> RowMapping | None:
+    async def find_one_or_none(cls, **filter_by) -> RowMapping | None:  # noqa: ANN003
         """Возвращает полную строку или None.
         cls.model.__table__.columns  =>   {'id': 1, ...}
         cls.model                    =>   {'Candies': <db.candies_model.Candies>}"""
@@ -22,7 +22,7 @@ class BaseDAO:
             return res.mappings().one_or_none()
 
     @classmethod
-    async def find_all(cls, **filter_by) -> list[RowMapping]:
+    async def find_all(cls, **filter_by) -> list[RowMapping]:  # noqa: ANN003
         """
         .filter(*filter_by)
             router_bookings: get_bookings
@@ -35,7 +35,7 @@ class BaseDAO:
             return res.mappings().all()
 
     @classmethod
-    async def add(cls, **data) -> None:
+    async def add(cls, **data) -> None:  # noqa: ANN003
         """Добавленное значение возвращается методом .returning()"""
         async with async_session_factory() as session:
             stmt = insert(cls.model).values(**data)  # .returning(cls.model.id)

@@ -20,7 +20,7 @@ class DatabaseSettings(BaseSettings):
     При запуске Docker-Compose '.env.dev' меняется на '.env.prod' докером."""
 
     model_config = SettingsConfigDict(
-        env_file=".env.dev", str_strip_whitespace=True, env_prefix="db_"
+        env_file=".env.dev", str_strip_whitespace=True, env_prefix="db_",
     )
 
     mode: Literal["DEV", "TEST", "PROD"]
@@ -34,7 +34,7 @@ class DatabaseSettings(BaseSettings):
     echo: bool = False
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         Строка подключения к БД (адрес). Указывает SQLAlchemy, как подключиться к БД.
         asyncpg (драйвер БД) - API для асинхронного взаимодействия с postgresql.

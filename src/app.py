@@ -17,7 +17,7 @@ _redis_settings = get_settings(RedisSettings)
 
 
 @contextlib.asynccontextmanager
-async def _lifespan(app: FastAPI):
+async def _lifespan(app: FastAPI):  # noqa: ANN202, ARG001
     """'lifespan' заменяет 'startup' и 'shutdown'.
     'yield' - место работы приложения. Соответственно,
     все до и после 'yield' - это процессы в начале работы приложения и в его конце."""

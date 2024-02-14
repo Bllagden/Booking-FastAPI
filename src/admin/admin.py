@@ -6,9 +6,9 @@ from .auth import authentication_backend
 from .views import BookingsAdmin, HotelsAdmin, RoomsAdmin, UsersAdmin
 
 
-def create_admin(app):
+def create_admin(fastapi_app) -> Admin:  # noqa: ANN001
     admin = Admin(
-        app,
+        fastapi_app,
         # engine=async_engine,
         session_maker=async_session_factory,
         authentication_backend=authentication_backend,
@@ -17,7 +17,7 @@ def create_admin(app):
     return admin
 
 
-def _add_admin_views(admin):
+def _add_admin_views(admin: Admin) -> None:
     admin.add_view(UsersAdmin)
     admin.add_view(HotelsAdmin)
     admin.add_view(RoomsAdmin)

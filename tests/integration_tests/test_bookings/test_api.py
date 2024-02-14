@@ -20,11 +20,11 @@ from httpx import AsyncClient
     ],
 )
 async def test_add_and_get_booking(
-    room_id,
-    date_from,
-    date_to,
-    booked_rooms,
-    status_code,
+    room_id: int,
+    date_from: str,
+    date_to: str,
+    booked_rooms: int,
+    status_code: int,
     authenticated_ac: AsyncClient,
 ):
     # проверка добавления
