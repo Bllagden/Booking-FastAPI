@@ -15,6 +15,30 @@
 -	Настроил `Nginx` для работы на локальном хосте;
 -	Использовал инструменты для разработки: `PDM`, `Ruff`, `Black`, `isort`.
 
+## Стиль кода
+Для форматирования кода используются `Black` и `isort` (с профилем Black).
+
+Для статического анализа кода используется `Ruff`.
+
+`PDM`, кроме работы с зависимостями, позволяет использовать скрипты для автоматизации процессов проверки и форматирования кода.
+<br />
+Вызов скрипта: `pdm run lint_src`
+>Скрипт из `pyproject.toml`:
+>
+>[tool.pdm.scripts]
+><br />
+>lint_src = {composite = [
+><br />
+>"ruff check ./src --fix --show-fixes",
+><br />
+>"black ./src",
+><br />
+>"ruff check ./src --fix --show-fixes",
+><br />
+>"alembic check",
+><br />
+>]}
+
 ## Админ-панель (SQLAdmin)
 
 ### Пользователи
@@ -31,11 +55,11 @@
 
 При тестировании файл `.env.dev` заменяется на `.env.test` (с помощью библиотеки `pytest-dotenv`).
 <br />
-Для этого в `pyproject.toml` добавлено:
+>Для этого в `pyproject.toml` добавлено:
 <br />
-`[tool.pytest.ini_options]`
-<br />
-`env_files = [".env.test",]`
+>[tool.pytest.ini_options]
+><br />
+>env_files = [".env.test",]
 
 Для запуска тестов из консоли необходимо явно указать `.env` файл:
 ```
@@ -147,7 +171,10 @@ print(b64encode(token_bytes(32)).decode())
     Flower: `http://YOUR_IP/flower/`
 
 ### Контейнеры
-![](documentation_images/docker.png)
+>![](documentation_images/docker.png)
+><br />
+>Для контейнеров `booking_app`, `booking_nginx` и `booking_celery` написаны отдельные Docker-файлы.
+
 
 ## Первичное заполнение БД
 Для заполнения `DEV-DB` или `PROD-DB` можно использовать данные (запросы) из файла `src/db/initial_data.sql`.
@@ -174,7 +201,7 @@ print(b64encode(token_bytes(32)).decode())
     ><br />
     >Username: `postgres_user`
     ><br />
-    >Password: `postgres_password`
+    >Password: `postgres_password` *нужен сложный пароль
 
 3) `TEST-DB` (во время тестов заполняется сама данными из mock-файлов; создается также, как и `DEV-DB`, но с другим именем)
     >Main db: `fastapi_booking_test`
