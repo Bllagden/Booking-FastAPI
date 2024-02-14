@@ -4,16 +4,16 @@
 ![](documentation_images/docs_base.png)
 
 ## Во время разработки:
--	Создал веб-API с автоматической интерактивной документацией при помощи Python, FastAPI и Pydantic;
--	Асинхронно использовал SQLAlchemy для быстрой обработки запросов;
--	Выбрал PostgreSQL в качестве СУБД;
--	Внедрил миграции для управления версиями БД при помощи Alembic;
--	Подключил JWT для обеспечения безопасности и управления сессиями пользователей;
--	Добавил админ-панель (библиотека SQLAdmin совместимая с SQLAlchemy и FastAPI);
--	Для написания и выполнения тестов выбрал Pytest;
--	Применил Docker-Compose для связи нескольких сервисов (API, Postgres-DB, Redis, Celery, Flower, Nginx);
--	Настроил Nginx для работы на локальном хосте;
--	Использовал инструменты для разработки: PDM, Ruff, Black, isort.
+-	Создал веб-API с автоматической интерактивной документацией при помощи Python, `FastAPI` и `Pydantic`;
+-	Асинхронно использовал `SQLAlchemy` для быстрой обработки запросов;
+-	Выбрал `PostgreSQL` в качестве СУБД;
+-	Внедрил миграции для управления версиями БД при помощи `Alembic`;
+-	Подключил `JWT` для обеспечения безопасности и управления сессиями пользователей;
+-	Добавил админ-панель (библиотека `SQLAdmin` совместимая с SQLAlchemy и FastAPI);
+-	Для написания и выполнения тестов выбрал `Pytest`;
+-	Применил Docker-Compose для связи нескольких сервисов (API, Postgres-DB, `Redis`, `Celery`, `Flower`, `Nginx`);
+-	Настроил `Nginx` для работы на локальном хосте;
+-	Использовал инструменты для разработки: `PDM`, `Ruff`, `Black`, `isort`.
 
 ## Админ-панель (SQLAdmin)
 
@@ -54,25 +54,27 @@ print(b64encode(token_bytes(32)).decode())
 
 
 ## Запуск через VS Code
-1) Установить [Postgres](https://www.postgresql.org/)
+1) Установить:
 
-2) Установить [Redis](https://redis.io/)
-(для Windows: [link](https://github.com/tporadowski/redis/releases/))
+    [Postgres](https://www.postgresql.org/)
+    <br />
+    [Redis](https://redis.io/)
+    (для [Windows](https://github.com/tporadowski/redis/releases/))
+    <br />
+    [PDM](https://pdm-project.org/latest/)
 
-3) Установить [PDM](https://pdm-project.org/latest/)
-
-4) Склонировать репозиторий:
+2) Склонировать репозиторий:
     ```
     git clone git@github.com:Bllagden/Booking-FastAPI.git
     cd Booking-FastAPI
     ```
 
-5) Установить зависимости:
+3) Установить зависимости:
     ```
     pdm install
     ```
 
-6) Создать .env файлы:
+4) Создать .env файлы:
     
     `.env.dev`, `.env.test` и `.env.prod` по аналогии с:
     <br />
@@ -80,7 +82,7 @@ print(b64encode(token_bytes(32)).decode())
     <br />
     (`.env.prod` необязателен)
 
-7) Настройка БД:
+5) Настройка БД:
     
     Создать Postgres-DB и вписать настройки для подключения к ней в `.env` файлы.
     
@@ -90,11 +92,11 @@ print(b64encode(token_bytes(32)).decode())
     pdm run alembic upgrade head
     ```
 
-8) Настройка Celery:
+6) Настройка Celery:
 
     Включить двухэтапную аутентификацию и создать пароль приложения в настройках Google аккаунта для отправки электронных писем через `Celery`. Добавить пароль приложения и почту в `.env` файлы (SMTP).
     
-9) Запуск:
+7) Запуск:
     
     Запустить `redis-server`;
     
@@ -102,7 +104,7 @@ print(b64encode(token_bytes(32)).decode())
     <br />
     `Booking FastAPI`, `Celery Worker` и `Celery Flower`.
 
-10) Доступ:
+8) Доступ:
     
     API: http://127.0.0.1:8000/docs
     <br />
@@ -112,6 +114,7 @@ print(b64encode(token_bytes(32)).decode())
 
 
 ## Запуск через Docker
+### Запуск
 1) Склонировать репозиторий:
     ```
     git clone git@github.com:Bllagden/Booking-FastAPI.git
@@ -143,6 +146,8 @@ print(b64encode(token_bytes(32)).decode())
     <br />
     Flower: `http://YOUR_IP/flower/`
 
+### Контейнеры
+![](documentation_images/docker.png)
 
 ## Первичное заполнение БД
 Для заполнения `DEV-DB` или `PROD-DB` можно использовать данные (запросы) из файла `src/db/initial_data.sql`.
