@@ -55,7 +55,7 @@
 
 При тестировании файл `.env.dev` заменяется на `.env.test` (с помощью библиотеки `pytest-dotenv`).
 >Для этого в `pyproject.toml` добавлено:
-><br />
+>
 >[tool.pytest.ini_options]
 ><br />
 >env_files = [".env.test",]
